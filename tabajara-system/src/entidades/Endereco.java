@@ -64,7 +64,7 @@ public class Endereco {
     public void setBairro(String bairro) {
         this.bairro = bairro;
     }
-
+    
     public String paraString() {
         return "Endereco{" +
                 "rua='" + rua + '\'' +

@@ -1,10 +1,12 @@
+import entidades.Cliente;
 import entidades.Endereco;
 
 import entidades.PessoaFisica;
 import entidades.PessoaJuridica;
 import entidades.Produto;
 import entidades.ProdutoPerecivel;
-import gerenciadores.ClienteGenrenciador;
+import entidades.SalvarDados;
+import gerenciadores.ClienteGerenciador;
 import gerenciadores.ProdutoGerenciador;
 
 import javax.swing.JOptionPane;
@@ -39,7 +41,7 @@ public class MenuSistema {
 
             switch (escolha) {
                 case 1:
-                    ClienteGenrenciador gerenciador  = new ClienteGenrenciador();
+                    ClienteGerenciador gerenciador  = new ClienteGerenciador();
                     String nome = JOptionPane.showInputDialog("Digite o nome do cliente:");
                     String rua = JOptionPane.showInputDialog("Digite o nome da rua do cliente:");
                     String numero = JOptionPane.showInputDialog("Digite o número da residência do cliente:");
@@ -60,6 +62,8 @@ public class MenuSistema {
                             String cpf = JOptionPane.showInputDialog("Digite o CPF do cliente:");
                             int qntMaxParcelas = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade máxima de parcelas:"));
                             PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, dataCadastro, qntMaxParcelas, cpf);
+                            SalvarDados<PessoaFisica> salvar_cliente_fisico = new SalvarDados<>();
+                            salvar_cliente_fisico.salvar(pessoaFisica.paraString(), "cliente");
                             gerenciador.adicionarCliente(pessoaFisica);
                             JOptionPane.showMessageDialog(null, "Cliente Pessoa Física adicionado com sucesso!");
                             break;
@@ -70,6 +74,8 @@ public class MenuSistema {
                             Date dataCadastroPJ = new Date(); // Supondo que a data de cadastro é a data atual
                             if (new PessoaJuridica("", null, null, cnpj, "", 0).validarCPNJ(cnpj)) { // Validando o CNPJ
                                 PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, dataCadastroPJ, cnpj, razaoSocial, prazoMaximo);
+                                SalvarDados<PessoaJuridica> salvar_cliente_juridico = new SalvarDados<>();
+                                salvar_cliente_juridico.salvar(pessoaJuridica.paraString(), "cliente");
                                 gerenciador.adicionarCliente(pessoaJuridica);
                                 JOptionPane.showMessageDialog(null, "Cliente Pessoa Jurídica adicionado com sucesso!");
                             } else {
@@ -104,6 +110,8 @@ public class MenuSistema {
                     switch (tipoProduto){
                         case 0:
                             Produto produto = new Produto(valor, nome_produto, codigo, descricao);
+                            SalvarDados<Produto> salvar_produto = new SalvarDados<>();
+                            salvar_produto.salvar(produto.paraString(), "produto");
                             produto_gerenciador.adicionarProduto(produto);
                             JOptionPane.showMessageDialog(null, "Produto não Perecível adicionado com sucesso!");
                             break;
@@ -114,6 +122,8 @@ public class MenuSistema {
                             try {
                                 Date data_validade = dateFormat.parse(dataValidadeStr);
                                 ProdutoPerecivel produto_perecivel = new ProdutoPerecivel(valor, nome_produto, codigo, descricao, data_validade);
+                                SalvarDados<ProdutoPerecivel> salvar_produto_perecivel = new SalvarDados<>();
+                                salvar_produto_perecivel.salvar(produto_perecivel.paraString(), "produto");
                                 produto_gerenciador.adicionarProduto(produto_perecivel);
                                 JOptionPane.showMessageDialog(null, "Produto Perecível adicionado com sucesso!");
                             } catch (ParseException e) {
@@ -125,6 +135,8 @@ public class MenuSistema {
                             JOptionPane.showMessageDialog(null, "Opção inválida!");
                             break;
                     }
+
+                    // lógica para cadastro de produtos
                     break;
                 case 5:
                     // Lógica para efetuação de uma compra

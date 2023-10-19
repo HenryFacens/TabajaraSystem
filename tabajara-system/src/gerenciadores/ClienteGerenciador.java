@@ -2,7 +2,7 @@ package gerenciadores;
 import entidades.Cliente;
 import java.util.ArrayList;
 import java.util.List;
-public class ClienteGenrenciador {
+public class ClienteGerenciador {
 
     private Cliente cliente;
     private List<Cliente> lista = new ArrayList<>();
