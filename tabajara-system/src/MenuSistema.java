@@ -1,4 +1,12 @@
+import entidades.Endereco;
+
+import entidades.PessoaFisica;
+import entidades.PessoaJuridica;
+import gerenciadores.ClienteGenrenciador;
+
 import javax.swing.JOptionPane;
+import javax.xml.crypto.Data;
+import java.util.Date;
 
 public class MenuSistema {
 
@@ -25,6 +33,46 @@ public class MenuSistema {
 
             switch (escolha) {
                 case 1:
+                    ClienteGenrenciador gerenciador  = new ClienteGenrenciador();
+                    String nome = JOptionPane.showInputDialog("Digite o nome do cliente:");
+                    String rua = JOptionPane.showInputDialog("Digite o nome da rua do cliente:");
+                    String numero = JOptionPane.showInputDialog("Digite o número da residência do cliente:");
+                    String cep = JOptionPane.showInputDialog("Digite o CEP do Cliente:");
+                    String cidade = JOptionPane.showInputDialog("Digite a cidade do Cliente:");
+                    String pais = JOptionPane.showInputDialog("Digite o Pais do Cliente:");
+                    String bairro = JOptionPane.showInputDialog("Digite o Bairro do Cliente:");
+                    Endereco endereco = new Endereco(rua,numero,cep,cidade,pais,bairro);
+
+                    String[] options = {"Pessoa Fisíca","Pessoa Juridica"};
+                    int tipoCliente = JOptionPane.showOptionDialog(null, "Escolha o tipo de cliente:",
+                            "Tipo de Cliente", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+                    switch (tipoCliente) {
+                        case 0:
+                            Date dataCadastro = new Date();
+                            String cpf = JOptionPane.showInputDialog("Digite o CPF do cliente:");
+                            int qntMaxParcelas = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade máxima de parcelas:"));
+                            PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, dataCadastro, qntMaxParcelas, cpf);
+                            gerenciador.adicionarCliente(pessoaFisica);
+                            JOptionPane.showMessageDialog(null, "Cliente Pessoa Física adicionado com sucesso!");
+                            break;
+                        case 1:
+                            String cnpj = JOptionPane.showInputDialog("Digite o CNPJ da empresa:");
+                            String razaoSocial = JOptionPane.showInputDialog("Digite a razão social da empresa:");
+                            int prazoMaximo = Integer.parseInt(JOptionPane.showInputDialog("Digite o prazo máximo para a empresa:"));
+                            Date dataCadastroPJ = new Date(); // Supondo que a data de cadastro é a data atual
+                            if (new PessoaJuridica("", null, null, cnpj, "", 0).validarCPNJ(cnpj)) { // Validando o CNPJ
+                                PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, dataCadastroPJ, cnpj, razaoSocial, prazoMaximo);
+                                gerenciador.adicionarCliente(pessoaJuridica);
+                                JOptionPane.showMessageDialog(null, "Cliente Pessoa Jurídica adicionado com sucesso!");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "CNPJ inválido!");
+                            }
+                        default:
+                            JOptionPane.showMessageDialog(null, "Opção inválida!");
+                            break;
+                    }
 
                     // Lógica para cadastros de clientes
                     break;
@@ -78,8 +126,6 @@ public class MenuSistema {
         }
 
         switch (input) {
-            case "0":
-                return; // Retorna para o menu principal
             case "a":
                 // Lógica para relação de todos os clientes com nome iniciado por uma determinada sequência de caracteres
                 break;
@@ -113,6 +159,8 @@ public class MenuSistema {
             case "k":
                 // Lógica para relação do valor total de compras feitas nos últimos 12 meses
                 break;
+            case "0":
+                return; // Retorna para o menu principal
             default:
                 JOptionPane.showMessageDialog(null, "Opção inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
         }

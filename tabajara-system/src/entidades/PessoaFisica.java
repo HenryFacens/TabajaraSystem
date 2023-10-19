@@ -9,7 +9,7 @@ public class PessoaFisica extends Cliente{
 
     private int qntMaxParcelas;
 
-    public PessoaFisica(String nome, Endereco endereco, Date dataCadastro, int qntMaxParcelas) {
+    public PessoaFisica(String nome, Endereco endereco, Date dataCadastro, int qntMaxParcelas,String cpf) {
         super(nome, endereco, dataCadastro);
         this.cpf = cpf;
         this.qntMaxParcelas = qntMaxParcelas;

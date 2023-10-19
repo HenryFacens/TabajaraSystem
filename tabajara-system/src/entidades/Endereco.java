@@ -1,16 +1,14 @@
 package entidades;
 
-import javax.annotation.processing.Generated;
-
 public class Endereco {
     private String rua;
-    private int numero;
+    private String numero;
     private String cep;
     private String cidade;
     private String pais;
     private String bairro;
 
-    public Endereco(String rua, int numero, String cep, String cidade, String pais, String bairro) {
+    public Endereco(String rua, String numero, String cep, String cidade, String pais, String bairro) {
         this.rua = rua;
         this.numero = numero;
         this.cep = cep;
@@ -27,11 +25,11 @@ public class Endereco {
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 

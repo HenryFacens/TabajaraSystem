@@ -14,26 +14,23 @@ public  class Compra {
     
     private final String documento;
 
-    public Compra(List<ItensPedidos> lista, String indentificador, Date data, double valorTotal, String documento) {
+    public Compra(List<ItensPedidos> lista, String indentificador, Date data, String documento) {
         this.lista = lista;
         this.indentificador = indentificador;
         this.data = data;
-        this.valorTotal = valorTotal;
+        this.valorTotal = calcularValorTotal();
         this.documento = documento;
     }
 
 
-    private void ValorTotal(){
+    private double calcularValorTotal(){
         double total = 0;
         for (ItensPedidos pedidos: lista) {
             total += pedidos.getValorTotal();
         }
-//        return total;
+        return total;
     }
 
-    public double getValorTotal(){
-        return valorTotal;
-    }
      public String paraString(){
         return "";
     }

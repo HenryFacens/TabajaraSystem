@@ -15,7 +15,7 @@ public class PessoaJuridica extends Cliente {
         this.prazoMaximo = prazoMaximo;
     }
 
-    private boolean validarCPNJ(String cpf){
+    public boolean validarCPNJ(String cpf){
         return cpf.length() == 15;
     }
 
