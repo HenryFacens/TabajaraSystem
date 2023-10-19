@@ -2,10 +2,16 @@ import entidades.Endereco;
 
 import entidades.PessoaFisica;
 import entidades.PessoaJuridica;
+import entidades.Produto;
+import entidades.ProdutoPerecivel;
 import gerenciadores.ClienteGenrenciador;
+import gerenciadores.ProdutoGerenciador;
 
 import javax.swing.JOptionPane;
 import javax.xml.crypto.Data;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MenuSistema {
@@ -83,7 +89,42 @@ public class MenuSistema {
                     // Lógica para deletar cliente pelo nome
                     break;
                 case 4:
-                    // Lógica para cadastro de produtos
+                    ProdutoGerenciador produto_gerenciador = new ProdutoGerenciador();
+                    String nome_produto = JOptionPane.showInputDialog("Digite o nome do produto:");
+                    Integer codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código do produto:"));
+                    Double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor do produto:"));
+                    String descricao = JOptionPane.showInputDialog("Digite uma breve descricao do produto:");
+
+                    String[] options_produto = {"Produto não Perecível", "Produto Perecível"};
+                    int tipoProduto = JOptionPane.showOptionDialog(null, "Escolha o tipo de produto:",
+                        "Tipo de produto", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE, null, options_produto, options_produto[0]
+                    );
+                    
+                    switch (tipoProduto){
+                        case 0:
+                            Produto produto = new Produto(valor, nome_produto, codigo, descricao);
+                            produto_gerenciador.adicionarProduto(produto);
+                            JOptionPane.showMessageDialog(null, "Produto não Perecível adicionado com sucesso!");
+                            break;
+
+                        case 1:
+                            String dataValidadeStr = JOptionPane.showInputDialog("Digite a data de validade do produto (no formato dd/MM/yyyy)");
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                Date data_validade = dateFormat.parse(dataValidadeStr);
+                                ProdutoPerecivel produto_perecivel = new ProdutoPerecivel(valor, nome_produto, codigo, descricao, data_validade);
+                                produto_gerenciador.adicionarProduto(produto_perecivel);
+                                JOptionPane.showMessageDialog(null, "Produto Perecível adicionado com sucesso!");
+                            } catch (ParseException e) {
+                                JOptionPane.showMessageDialog(null, "A data inserida não está no formato correto (dd/MM/yyyy)");
+                            }
+                            break;
+
+                        default:
+                            JOptionPane.showMessageDialog(null, "Opção inválida!");
+                            break;
+                    }
                     break;
                 case 5:
                     // Lógica para efetuação de uma compra
