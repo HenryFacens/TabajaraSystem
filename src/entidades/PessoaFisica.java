@@ -13,8 +13,8 @@ public class PessoaFisica extends Cliente{
         super(nome, endereco, dataCadastro);
         this.cpf = cpf;
         this.qntMaxParcelas = qntMaxParcelas;
+        Cliente.classesInstanciadas.add(this);
     }
-
 
     @Override
     public String getDocumento() {
@@ -23,7 +23,7 @@ public class PessoaFisica extends Cliente{
 
     @Override
     public String paraString() {
-        return "Nome: " + getNome() + "\nEndereço: " + getEndereco().paraString() + "\nData de Cadastro: " + getDataCadastro() + "\nCPF: " + cpf + "\n\n";
+        return "Tipo: " + this.getClass() + "\nNome: " + getNome() + "\nEndereço: " + getEndereco().paraString() + "\nData de Cadastro: " + getDataCadastro() + "\nCPF: " + cpf + "\n\n";
     }
 
     public String getCpf() {

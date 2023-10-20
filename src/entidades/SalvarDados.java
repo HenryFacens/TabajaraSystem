@@ -20,6 +20,7 @@ public class SalvarDados<T> {
             e.printStackTrace();
         }
     }
+
     public String ler(String nomeArquivo) {
         String caminhoCompleto = DEFAULT_DIRETORIO + nomeArquivo + ".txt";
         StringBuilder conteudo = new StringBuilder();
@@ -35,32 +36,4 @@ public class SalvarDados<T> {
 
         return conteudo.toString();
     }
-
-//    public class Repository<T> {
-//        private String arquivoTexto = "src/baseDados/"; // Nome do arquivo para persistência de dados
-//
-//        public Repository(String way) {
-//            arquivoTexto += way;
-//        }
-//
-//        // Outros métodos relacionados a clientes, como buscar por CPF, CNPJ, etc.
-//
-//        public List<T> carregarDados() {
-//            try (ObjectInputStream input = new ObjectInputStream(new FileInputStream(arquivoTexto))) {
-//                return (List<T>) input.readObject();
-//            } catch (IOException | ClassNotFoundException e) {
-//                // Tratar exceções de leitura ou de classe não encontrada
-//                return null;
-//            }
-//        }
-//
-//        public void salvarDados(List<T> clientes) {
-//            try (ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(arquivoTexto))) {
-//                output.writeObject(clientes);
-//            } catch (IOException e) {
-//                // Tratar exceções de escrita
-//            }
-//        }
-//    }
-
 }

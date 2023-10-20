@@ -1,18 +1,25 @@
 package entidades;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public abstract class Cliente {
     private String nome;
     private Endereco endereco;
     private Date dataCadastro;
 
+    protected static List<Object> classesInstanciadas = new ArrayList<>();
 
 
     public Cliente(String nome, Endereco endereco, Date dataCadastro) {
         this.nome = nome;
         this.endereco = endereco;
         this.dataCadastro = dataCadastro;
+    }
+
+    public static List<Object> getClassesInstanciadas() {
+        return classesInstanciadas;
     }
 
     public abstract String getDocumento();

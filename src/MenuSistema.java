@@ -15,6 +15,7 @@ import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class MenuSistema {
 
@@ -72,15 +73,15 @@ public class MenuSistema {
                             String razaoSocial = JOptionPane.showInputDialog("Digite a razão social da empresa:");
                             int prazoMaximo = Integer.parseInt(JOptionPane.showInputDialog("Digite o prazo máximo para a empresa:"));
                             Date dataCadastroPJ = new Date(); // Supondo que a data de cadastro é a data atual
-                            if (new PessoaJuridica("", null, null, cnpj, "", 0).validarCPNJ(cnpj)) { // Validando o CNPJ
-                                PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, dataCadastroPJ, cnpj, razaoSocial, prazoMaximo);
-                                SalvarDados<PessoaJuridica> salvar_cliente_juridico = new SalvarDados<>();
-                                salvar_cliente_juridico.salvar(pessoaJuridica.paraString(), "cliente");
-                                gerenciador.adicionarCliente(pessoaJuridica);
-                                JOptionPane.showMessageDialog(null, "Cliente Pessoa Jurídica adicionado com sucesso!");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "CNPJ inválido!");
-                            }
+                            // if (new PessoaJuridica("", null, null, cnpj, "", 0).validarCPNJ(cnpj)) { // Validando o CNPJ
+                            PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, dataCadastroPJ, cnpj, razaoSocial, prazoMaximo);
+                            SalvarDados<PessoaJuridica> salvar_cliente_juridico = new SalvarDados<>();
+                            salvar_cliente_juridico.salvar(pessoaJuridica.paraString(), "cliente");
+                            gerenciador.adicionarCliente(pessoaJuridica);
+                            JOptionPane.showMessageDialog(null, "Cliente Pessoa Jurídica adicionado com sucesso!");
+                            // } else {
+                            //     JOptionPane.showMessageDialog(null, "CNPJ inválido!");
+                            // }
                         default:
                             JOptionPane.showMessageDialog(null, "Opção inválida!");
                             break;

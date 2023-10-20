@@ -13,10 +13,7 @@ public class PessoaJuridica extends Cliente {
         this.cnpj = cnpj;
         this.razaoSocial = razaoSocial;
         this.prazoMaximo = prazoMaximo;
-    }
-
-    public boolean validarCPNJ(String cpf){
-        return cpf.length() == 15;
+        Cliente.classesInstanciadas.add(this);
     }
 
     @Override
@@ -26,8 +23,8 @@ public class PessoaJuridica extends Cliente {
 
     @Override
     public String paraString() {
-        return "Nome: " + getNome() + "\nEndereço: " + getEndereco() + "\nData de Cadastro: " + getDataCadastro() + "\nCNPJ: " + cnpj
-                + "Razão Social: " + razaoSocial + "Prazo Máximo: " + prazoMaximo;
+        return "Tipo: " + this.getClass() + "\nNome: " + getNome() + "\nEndereço: " + getEndereco().paraString() + "\nData de Cadastro: " + getDataCadastro() + "\nCNPJ: " + cnpj
+                + "\nRazão Social: " + razaoSocial + "\nPrazo Máximo: " + prazoMaximo + "\n\n";
     }
 
     public String getCnpj() {
