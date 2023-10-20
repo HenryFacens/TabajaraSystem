@@ -21,7 +21,7 @@ public class SalvarDados<T> {
         }
     }
 
-    public String ler(String nomeArquivo) {
+    public static String ler(String nomeArquivo) {
         String caminhoCompleto = DEFAULT_DIRETORIO + nomeArquivo + ".txt";
         StringBuilder conteudo = new StringBuilder();
 

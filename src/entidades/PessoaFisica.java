@@ -23,7 +23,7 @@ public class PessoaFisica extends Cliente{
 
     @Override
     public String paraString() {
-        return "Tipo: " + this.getClass() + "\nNome: " + getNome() + "\nEndereço: " + getEndereco().paraString() + "\nData de Cadastro: " + getDataCadastro() + "\nCPF: " + cpf + "\n\n";
+        return "Tipo:" + this.getClass() + "\nNome:" + getNome() + "\nEndereço;" + getEndereco().paraString() + "\nCadastro:" + getDataCadastro() + "\nCPF:" + cpf + "\nMaximas Parcelas:" + qntMaxParcelas + "\n\n";
     }
 
     public String getCpf() {

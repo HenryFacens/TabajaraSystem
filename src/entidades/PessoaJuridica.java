@@ -23,8 +23,8 @@ public class PessoaJuridica extends Cliente {
 
     @Override
     public String paraString() {
-        return "Tipo: " + this.getClass() + "\nNome: " + getNome() + "\nEndereço: " + getEndereco().paraString() + "\nData de Cadastro: " + getDataCadastro() + "\nCNPJ: " + cnpj
-                + "\nRazão Social: " + razaoSocial + "\nPrazo Máximo: " + prazoMaximo + "\n\n";
+        return "Tipo:" + this.getClass() + "\nNome:" + getNome() + "\nEndereço;" + getEndereco().paraString() + "\nCadastro:" + getDataCadastro() + "\nCNPJ:" + cnpj
+                + "\nRazão Social:" + razaoSocial + "\nPrazo Máximo:" + prazoMaximo + "\n\n";
     }
 
     public String getCnpj() {

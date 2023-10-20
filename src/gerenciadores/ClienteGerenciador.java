@@ -24,4 +24,8 @@ public class ClienteGerenciador {
                 .findFirst()
                 .orElse(null);
     }
+
+    // public List<Object> carregarClientes(){
+
+    // }
 }

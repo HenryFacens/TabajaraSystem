@@ -22,6 +22,10 @@ public abstract class Cliente {
         return classesInstanciadas;
     }
 
+    public static void setClassesInstanciadas(List<Object> novasClassesInstanciadas){
+        classesInstanciadas =  novasClassesInstanciadas;
+    }
+
     public abstract String getDocumento();
 
     public String getNome() {

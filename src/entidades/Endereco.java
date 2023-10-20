@@ -66,11 +66,11 @@ public class Endereco {
     }
     
     public String paraString() {
-        return "rua = " + rua +
-                ", numero = " + numero +
-                ", cep = " + cep +
-                ", cidade = " + cidade +
-                ", pais = " + pais +
-                ", bairro = " + bairro;
+        return "\n\tRua:" + rua +
+                "\n\tNumero:" + numero +
+                "\n\tCEP:" + cep +
+                "\n\tCidade:" + cidade +
+                "\n\tCais:" + pais +
+                "\n\tBairro:" + bairro;
     }
 }
