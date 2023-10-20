@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SalvarDados<T> {
 
-    private static final String DEFAULT_DIRETORIO = "/home/eduardo/personal_projects/TabajaraSystem/tabajara-system/src/baseDados/";
+    private static final String DEFAULT_DIRETORIO = "./baseDados/";
 
     public void salvar(String dado, String arquivo){
         String caminhoCompleto = DEFAULT_DIRETORIO + arquivo + ".txt";
