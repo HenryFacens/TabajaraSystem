@@ -11,10 +11,11 @@ public class SalvarDados<T> {
 
     private static final String DEFAULT_DIRETORIO = "./baseDados/";
 
-    public void salvar(String dado, String arquivo){
+    public void salvar(String dado, String arquivo) {
         String caminhoCompleto = DEFAULT_DIRETORIO + arquivo + ".txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoCompleto))) {
-            writer.write(dado.toString());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoCompleto, true))) {
+            writer.write(dado);
+            writer.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
