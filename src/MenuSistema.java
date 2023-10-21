@@ -82,6 +82,7 @@ public class MenuSistema {
                             // } else {
                             //     JOptionPane.showMessageDialog(null, "CNPJ inválido!");
                             // }
+                            break;
                         default:
                             JOptionPane.showMessageDialog(null, "Opção inválida!");
                             break;
