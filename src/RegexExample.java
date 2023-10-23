@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import javax.swing.plaf.TreeUI;
 import javax.xml.crypto.Data;
 
+
 public class RegexExample {
     public static void main(String[] args) {
         String input = SalvarDados.ler("cliente");
@@ -38,43 +39,27 @@ public class RegexExample {
         int prazoMaximo = -1;
         int qntMaxParcelas = -1;
         Endereco endereco = null;
+        boolean pessoaFisicaPronta = false;
+        boolean pessoaJuridicaPronta = false;
+        boolean enderecoPronto = false;
 
         while (matcher.find()) {
-            if (bairro != null){
+            if (enderecoPronto){
                 // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
                 endereco = new Endereco(rua,numero,cep,cidade,pais,bairro);
-
-                rua = null;
-                numero = null;
-                cep = null;
-                cidade = null;
-                pais = null;
-                bairro = null;
+                enderecoPronto = false;
             }
 
-            else if (qntMaxParcelas >= 0){
+            if (pessoaFisicaPronta){
                 // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
-
                 PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, cadastro, qntMaxParcelas, cpf);
+                pessoaFisicaPronta = false;
 
-                nome = null;
-                endereco = null;
-                cadastro = null;
-                cpf = null;
-                qntMaxParcelas = -1;
             }
-
-            else if (razaoSocial != null){
-                // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
-
+            if (pessoaJuridicaPronta){
+                // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);                
                 PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, cadastro, cnpj, razaoSocial, prazoMaximo);
-
-                nome = null;
-                endereco = null;
-                cadastro = null;
-                cnpj = null;
-                razaoSocial = null;
-                prazoMaximo = -1;
+                pessoaJuridicaPronta = false;
             }
             // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
 
@@ -128,6 +113,7 @@ public class RegexExample {
                     case "Bairro":
                         // System.out.println(key + ": " + value);
                         bairro = value;
+                        enderecoPronto = true;
                         break;
 
                     case "Cadastro":
@@ -151,6 +137,7 @@ public class RegexExample {
                         case "Maximas Parcelas":
                             // System.out.println(key + ": " + value);
                             qntMaxParcelas = Integer.parseInt(value);
+                            pessoaFisicaPronta = true;
                             break;
                    }
 
@@ -161,16 +148,15 @@ public class RegexExample {
                             cnpj = value;
                             break;
 
-                        case "Prazo Máximo":
-                            // System.out.println(key + ": " + value);
-                            prazoMaximo = Integer.parseInt(value);
-                            break;
-
                         case "Razão Social":
                             // System.out.println(key + ": " + value);
                             razaoSocial = value;
                             break;
 
+                        case "Prazo Máximo":
+                        prazoMaximo = Integer.parseInt(value);
+                        pessoaJuridicaPronta = true;
+                        break;
                     }
                 }
             }
