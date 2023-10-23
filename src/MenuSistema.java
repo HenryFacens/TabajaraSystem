@@ -20,7 +20,18 @@ import java.util.List;
 public class MenuSistema {
 
     public static void main(String[] args) {
+        SalvarDados.carregarBD();
+        // for (Object obj : Cliente.getClassesInstanciadas()) {
+        //     if (obj instanceof PessoaFisica) {
+        //         PessoaFisica pessoaFisica = (PessoaFisica) obj;
+        //         System.out.println(pessoaFisica.paraString());
+        //     } else if (obj instanceof PessoaJuridica) {
+        //         PessoaJuridica pessoaJuridica = (PessoaJuridica) obj;
+        //         System.out.println(pessoaJuridica.paraString());
+        //     }
+        // }
         while (true) {
+            System.out.println(Cliente.getClassesInstanciadas());
             String input = JOptionPane.showInputDialog(null,
                     "Escolha uma opção:\n"
                             + "1. Cadastros de Clientes\n"

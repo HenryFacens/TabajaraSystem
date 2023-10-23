@@ -18,7 +18,7 @@ import javax.xml.crypto.Data;
 
 
 public class RegexExample {
-    public static void main(String[] args) {
+    public void main(String[] args) {
         String input = SalvarDados.ler("cliente");
         Pattern pattern = Pattern.compile("([^:]+):\\s*(.*)");
         Matcher matcher = pattern.matcher(input);
@@ -159,16 +159,6 @@ public class RegexExample {
                         break;
                     }
                 }
-            }
-        }
-
-        for (Object obj : Cliente.getClassesInstanciadas()) {
-            if (obj instanceof PessoaFisica) {
-                PessoaFisica pessoaFisica = (PessoaFisica) obj;
-                System.out.println(pessoaFisica.paraString());
-            } else if (obj instanceof PessoaJuridica) {
-                PessoaJuridica pessoaJuridica = (PessoaJuridica) obj;
-                System.out.println(pessoaJuridica.paraString());
             }
         }
     }
