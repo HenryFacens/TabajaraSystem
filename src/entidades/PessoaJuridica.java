@@ -26,7 +26,7 @@ public class PessoaJuridica extends Cliente {
         return "Tipo:" + this.getClass() + "\nNome:" + getNome() + getEndereco().paraString() + "\nCadastro:" + getDataCadastro() + "\nCNPJ:" + cnpj
                 + "\nRazão Social:" + razaoSocial + "\nPrazo Máximo:" + prazoMaximo + "\nend:end" + "\n\n";
     }
- 
+
     public String getCnpj() {
         return cnpj;
     }
