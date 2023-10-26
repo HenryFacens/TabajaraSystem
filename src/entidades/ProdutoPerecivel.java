@@ -10,6 +10,7 @@ public class ProdutoPerecivel extends Produto{
     public ProdutoPerecivel(double valorProduto, String nome, int codigoProduto, String descricaoProduto, Date dataValidade) {
         super(valorProduto, nome, codigoProduto, descricaoProduto);
         this.dataValidade = dataValidade;
+        Produto.classesInstanciadas.add(this);
     }
 
     public boolean estaVencido(){
@@ -19,6 +20,6 @@ public class ProdutoPerecivel extends Produto{
     }
     @Override
     public String paraString(){
-        return "Tipo de Produto:" + this.getClass() + "\nNome:" + getNome() + "\nCódigo Produto:" + getCodigoProduto() + "\nDescrição:" + getDescricaoProduto() + "\nPerecível:" + dataValidade + "\nend:end" + "\n\n";
+        return "Tipo: " + this.getClass() + "\nNome:" + getNome() + "\nCódigo Produto:" + getCodigoProduto() + "\nDescrição:" + getDescricaoProduto() + "\nPerecível:" + dataValidade + "\nend:end" + "\n\n";
     }
 }

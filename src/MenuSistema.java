@@ -169,6 +169,7 @@ public class MenuSistema {
                     break;
                 case 5:
                     //String nomeProduto = JOptionPane.showInputDialog("Digite o nome do produto:");
+                    System.out.println(Produto.getClassesInstanciadas());
                     // Lógica para efetuação de uma compra
                     break;
                 case 6:

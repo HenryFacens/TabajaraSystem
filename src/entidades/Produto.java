@@ -1,7 +1,11 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produto {
 
+    protected static List<Object> classesInstanciadas = new ArrayList<>();
     private double valorProduto;
     private String nome;
     private int codigoProduto;
@@ -12,8 +16,15 @@ public class Produto {
         this.nome = nome;
         this.codigoProduto = codigoProduto;
         this.descricaoProduto = descricaoProduto;
+        Produto.classesInstanciadas.add(this);
+    }
+    public static List<Object> getClassesInstanciadas() {
+        return classesInstanciadas;
     }
 
+    public static void setClassesInstanciadas(List<Object> novasClassesInstanciadas){
+        classesInstanciadas =  novasClassesInstanciadas;
+    }
     public double getValorProduto() {
         return valorProduto;
     }
@@ -47,6 +58,6 @@ public class Produto {
     }
 
     public String paraString(){
-        return "Tipo de Produto:" + this.getClass() + "\nValor do Produto:" + valorProduto + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
+        return "Tipo: " + this.getClass() + "\nValor do Produto:" + valorProduto + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
     }
 }
