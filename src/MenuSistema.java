@@ -19,12 +19,10 @@ import java.util.List;
 
 import entidades.ControladorDados;
 import entidades.ResultadoChaveValor;
-
+import entidades.DataLoader;
 public class MenuSistema {
     public static void main(String[] args) {
-        String inpute = ControladorDados.ler("cliente");
-        ResultadoChaveValor resultado = ControladorDados.separarChaveValor(inpute);
-        System.out.println("Valores: " + resultado.getChaves() + " Chaves: " + resultado.getValores());
+        DataLoader.carregarClientes();
         // for (Object obj : Cliente.getClassesInstanciadas()) {
         //     if (obj instanceof PessoaFisica) {
         //         PessoaFisica pessoaFisica = (PessoaFisica) obj;
@@ -35,7 +33,7 @@ public class MenuSistema {
         //     }
         // }
         while (true) {
-            // System.out.println(Cliente.getClassesInstanciadas());
+            System.out.println(Cliente.getClassesInstanciadas());
             String input = JOptionPane.showInputDialog(null,
                     "Escolha uma opção:\n"
                             + "1. Cadastros de Clientes\n"
