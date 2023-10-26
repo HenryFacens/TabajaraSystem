@@ -55,12 +55,12 @@ public class MenuSistema {
                 case 1:
                     ClienteGerenciador gerenciador  = new ClienteGerenciador();
                     String nome = JOptionPane.showInputDialog("Digite o nome do cliente:");
+                    String bairro = JOptionPane.showInputDialog("Digite o Bairro do Cliente:");
                     String rua = JOptionPane.showInputDialog("Digite o nome da rua do cliente:");
                     String numero = JOptionPane.showInputDialog("Digite o número da residência do cliente:");
                     String cep = JOptionPane.showInputDialog("Digite o CEP do Cliente:");
                     String cidade = JOptionPane.showInputDialog("Digite a cidade do Cliente:");
                     String pais = JOptionPane.showInputDialog("Digite o Pais do Cliente:");
-                    String bairro = JOptionPane.showInputDialog("Digite o Bairro do Cliente:");
                     Endereco endereco = new Endereco(rua,numero,cep,cidade,pais,bairro);
 
                     String[] options = {"Pessoa Fisíca","Pessoa Juridica"};
@@ -73,22 +73,34 @@ public class MenuSistema {
                             Date dataCadastro = new Date();
                             String cpf = JOptionPane.showInputDialog("Digite o CPF do cliente:");
                             int qntMaxParcelas = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade máxima de parcelas:"));
+
                             PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, dataCadastro, qntMaxParcelas, cpf);
+
                             SalvarDados<PessoaFisica> salvar_cliente_fisico = new SalvarDados<>();
+
                             salvar_cliente_fisico.salvar(pessoaFisica.paraString(), "cliente");
+
                             gerenciador.adicionarCliente(pessoaFisica);
+
                             JOptionPane.showMessageDialog(null, "Cliente Pessoa Física adicionado com sucesso!");
+
                             break;
                         case 1:
                             String cnpj = JOptionPane.showInputDialog("Digite o CNPJ da empresa:");
+
                             String razaoSocial = JOptionPane.showInputDialog("Digite a razão social da empresa:");
+
                             int prazoMaximo = Integer.parseInt(JOptionPane.showInputDialog("Digite o prazo máximo para a empresa:"));
+
                             Date dataCadastroPJ = new Date(); // Supondo que a data de cadastro é a data atual
                             // if (new PessoaJuridica("", null, null, cnpj, "", 0).validarCPNJ(cnpj)) { // Validando o CNPJ
                             PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, dataCadastroPJ, cnpj, razaoSocial, prazoMaximo);
                             SalvarDados<PessoaJuridica> salvar_cliente_juridico = new SalvarDados<>();
+
                             salvar_cliente_juridico.salvar(pessoaJuridica.paraString(), "cliente");
+
                             gerenciador.adicionarCliente(pessoaJuridica);
+
                             JOptionPane.showMessageDialog(null, "Cliente Pessoa Jurídica adicionado com sucesso!");
                             // } else {
                             //     JOptionPane.showMessageDialog(null, "CNPJ inválido!");

@@ -47,11 +47,6 @@ public class Produto {
     }
 
     public String paraString(){
-        return "Produto{" +
-                "valorProduto=" + valorProduto +
-                ", nome='" + nome + '\'' +
-                ", codigoProduto=" + codigoProduto +
-                ", descricaoProduto='" + descricaoProduto + '\'' +
-                '}';
+        return "Tipo de Produto:" + this.getClass() + "\nValor do Produto:" + valorProduto + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
     }
 }

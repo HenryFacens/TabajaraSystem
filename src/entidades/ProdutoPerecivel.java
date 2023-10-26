@@ -19,6 +19,6 @@ public class ProdutoPerecivel extends Produto{
     }
     @Override
     public String paraString(){
-        return "Produto Perecivel: " + dataValidade;
+        return "Tipo de Produto:" + this.getClass() + "\nNome:" + getNome() + "\nCódigo Produto:" + getCodigoProduto() + "\nDescrição:" + getDescricaoProduto() + "\nPerecível:" + dataValidade + "\nend:end" + "\n\n";
     }
 }
