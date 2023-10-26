@@ -4,17 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-
-import entidades.ControladorDados;
-import entidades.ResultadoChaveValor;
-
-import entidades.PessoaFisica;
-import entidades.PessoaJuridica;
 
 public class DataLoader {
 
-    public static void carregarClientes(){
+    public static void carregarClientes() {
         String input = ControladorDados.ler("cliente");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
@@ -40,20 +35,20 @@ public class DataLoader {
         ArrayList<String> chaves = resultado.getChaves();
         ArrayList<String> valores = resultado.getValores();
 
-        for (int i = 0; i<chaves.size(); i++) {
-            if (enderecoPronto){
+        for (int i = 0; i < chaves.size(); i++) {
+            if (enderecoPronto) {
                 // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
-                endereco = new Endereco(rua,numero,cep,cidade,pais,bairro);
+                endereco = new Endereco(rua, numero, cep, cidade, pais, bairro);
                 enderecoPronto = false;
             }
 
-            if (pessoaFisicaPronta){
+            if (pessoaFisicaPronta) {
                 // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
                 PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, cadastro, qntMaxParcelas, cpf);
                 pessoaFisicaPronta = false;
 
             }
-            if (pessoaJuridicaPronta){
+            if (pessoaJuridicaPronta) {
                 // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);                
                 PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, cadastro, cnpj, razaoSocial, prazoMaximo);
                 pessoaJuridicaPronta = false;
@@ -61,10 +56,11 @@ public class DataLoader {
             // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
 
             String key = chaves.get(i);
-            String value = valores.get(i);;
+            String value = valores.get(i);
+            ;
 
-            if (key.equals("Tipo")){
-                switch (value){
+            if (key.equals("Tipo")) {
+                switch (value) {
                     case "class entidades.PessoaFisica":
                         fisica = true;
                         break;
@@ -74,8 +70,8 @@ public class DataLoader {
                         break;
                 }
 
-            }else{
-                switch (key){
+            } else {
+                switch (key) {
                     case "Nome":
                         // System.out.println(key + ": " + value);
 
@@ -122,10 +118,10 @@ public class DataLoader {
                             e.printStackTrace();
                         }
                         break;
-                   }
+                }
 
-                if (fisica){
-                    switch (key){
+                if (fisica) {
+                    switch (key) {
                         case "CPF":
                             // System.out.println(key + ": " + value);
                             cpf = value;
@@ -136,10 +132,10 @@ public class DataLoader {
                             qntMaxParcelas = Integer.parseInt(value);
                             pessoaFisicaPronta = true;
                             break;
-                   }
+                    }
 
-                }else{
-                    switch (key){
+                } else {
+                    switch (key) {
                         case "CNPJ":
                             // System.out.println(key + ": " + value);
                             cnpj = value;
@@ -151,12 +147,81 @@ public class DataLoader {
                             break;
 
                         case "Prazo Máximo":
-                        prazoMaximo = Integer.parseInt(value);
-                        pessoaJuridicaPronta = true;
-                        break;
+                            prazoMaximo = Integer.parseInt(value);
+                            pessoaJuridicaPronta = true;
+                            break;
                     }
                 }
             }
         }
+    }
+    public static void carregarProdutos(){
+
+        String input = ControladorDados.ler("produto");
+        ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
+        String nome = null;
+        Produto produto = null;
+        ProdutoPerecivel produtoPerecivel = null;
+        boolean ProdutoPronto = false;
+        boolean perecivelPronto = false;
+        Date dataValidade = null;
+        double valorProduto = -1;
+        int codigoProduto = -1;
+        String descricaoProduto = null;
+
+
+        ArrayList<String> chaves = resultado.getChaves();
+        ArrayList<String> valores = resultado.getValores();
+
+        for (int i = 0; i < chaves.size(); i++){
+                if(perecivelPronto){
+                    produtoPerecivel = new ProdutoPerecivel(valorProduto,nome, codigoProduto, descricaoProduto,dataValidade);
+                    perecivelPronto = false;
+                }
+                if (ProdutoPronto){
+                    produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
+                    ProdutoPronto = false;
+                }
+                String key = chaves.get(i);
+                String value = valores.get(i);
+
+                if(key.equals("Tipo")){
+                    switch (value) {
+                        case "class entidades.Produto":
+                            ProdutoPronto = true;
+                            break;
+                        case "class entidades.ProdutoPerecivel":
+                            perecivelPronto = true;
+                            break;
+                    }
+                }else {
+                    switch (key) {
+                        case "Nome":
+                            nome = value;
+                            break;
+                        case "Valor":
+                            valorProduto = Double.parseDouble(value);
+                            break;
+                        case "Código":
+                            codigoProduto = Integer.parseInt(value);
+                            break;
+                        case "Descrição":
+                            descricaoProduto = value;
+                            break;
+                        case "Validade":
+                            try {
+                                // Parse the date string into a Date object
+                                dataValidade = sdf.parse(value);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                }
+
+            }
+        }
+
     }
 }
