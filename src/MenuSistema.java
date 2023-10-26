@@ -17,10 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class MenuSistema {
+import entidades.ControladorDados;
+import entidades.ResultadoChaveValor;
 
+public class MenuSistema {
     public static void main(String[] args) {
-        SalvarDados.carregarBD();
+        String inpute = ControladorDados.ler("cliente");
+        ResultadoChaveValor resultado = ControladorDados.separarChaveValor(inpute);
+        System.out.println("Valores: " + resultado.getChaves() + " Chaves: " + resultado.getValores());
         // for (Object obj : Cliente.getClassesInstanciadas()) {
         //     if (obj instanceof PessoaFisica) {
         //         PessoaFisica pessoaFisica = (PessoaFisica) obj;
@@ -31,7 +35,7 @@ public class MenuSistema {
         //     }
         // }
         while (true) {
-            System.out.println(Cliente.getClassesInstanciadas());
+            // System.out.println(Cliente.getClassesInstanciadas());
             String input = JOptionPane.showInputDialog(null,
                     "Escolha uma opção:\n"
                             + "1. Cadastros de Clientes\n"

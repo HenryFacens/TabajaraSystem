@@ -2,7 +2,7 @@ package entidades;
 
 import java.util.ArrayList;
 
-final class ResultadoChaveValor {
+public class ResultadoChaveValor {
     private ArrayList<String> chaves;
     private ArrayList<String> valores;
 

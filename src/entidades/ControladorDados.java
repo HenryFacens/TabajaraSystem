@@ -10,13 +10,16 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 import entidades.ResultadoChaveValor;
 
+
+
 public class ControladorDados {
     private static final String DIRETORIO_DEFAULT = "./baseDados/";
 
-    public static String ler() {
+    public static String ler(String nomeArquivo) {
+        String caminhoCompleto = DIRETORIO_DEFAULT + nomeArquivo + ".txt";
         StringBuilder conteudo = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(DIRETORIO_DEFAULT))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoCompleto))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 conteudo.append(linha).append("\n");
@@ -40,7 +43,4 @@ public class ControladorDados {
 
         return new ResultadoChaveValor(chaves, valores);
     }
-
-    
-
 }
