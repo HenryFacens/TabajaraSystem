@@ -17,10 +17,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import entidades.ControladorDados;
+import entidades.ResultadoChaveValor;
+import entidades.DataLoader;
 public class MenuSistema {
-
     public static void main(String[] args) {
-        SalvarDados.carregarBD();
+        DataLoader.carregarClientes();
         // for (Object obj : Cliente.getClassesInstanciadas()) {
         //     if (obj instanceof PessoaFisica) {
         //         PessoaFisica pessoaFisica = (PessoaFisica) obj;
