@@ -128,6 +128,25 @@ public class MenuSistema {
                     break;
                 case 3:
                     // Lógica para deletar cliente pelo nome
+                    String nomeCliente = JOptionPane.showInputDialog("Digite o nome do cliente:");
+                    List<Object> clienteObjs = Cliente.getClassesInstanciadas();
+                    for (Object obj : clienteObjs){
+                        if (obj instanceof PessoaFisica) {
+                            PessoaFisica pessoa = (PessoaFisica) obj;
+                                if (pessoa.getNome().equals(nomeCliente)){
+                                    clienteObjs.remove(obj);
+                                    break;
+                                }
+                        } else{
+                            PessoaJuridica pessoa = (PessoaJuridica) obj;
+                            if (pessoa.getNome().equals(nomeCliente)){
+                                    clienteObjs.remove(obj);
+                                    break;
+                            }
+                        }
+                    }
+                    Cliente.setClassesInstanciadas(clienteObjs);
+                    SalvarDados.reescreverLista(Cliente.getClassesInstanciadas(), "cliente");
                     break;
                 case 4:
                     ProdutoGerenciador produto_gerenciador = new ProdutoGerenciador();

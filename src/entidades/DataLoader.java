@@ -71,7 +71,6 @@ public class DataLoader {
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
-        System.out.println(contarRepetido("end", valores));
 
         for (List<Integer> idxs : contarRepetido("end", valores)){
             String nome = valores.get(idxs.get(1));

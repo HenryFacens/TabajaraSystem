@@ -1,18 +1,3 @@
-Tipo:class entidades.PessoaJuridica
-Nome:123
-Rua:123
-Numero:123
-CEP:123
-Cidade:123
-Pais:123
-Bairro:121
-Cadastro:Mon Oct 23 12:19:49 BRT 2023
-CNPJ:120
-Razão Social:123
-Prazo Máximo:123
-end:end
-
-
 Tipo:class entidades.PessoaFisica
 Nome:123
 Rua:123
@@ -53,20 +38,6 @@ Cadastro:Mon Oct 23 17:05:58 BRT 2023
 CNPJ:123
 Razão Social:123
 Prazo Máximo:123
-end:end
-
-
-Tipo:class entidades.PessoaFisica
-Nome:Bruno
-Rua:Facens
-Numero:312
-CEP:121425232
-Cidade:Sorocava
-Pais:Brasa
-Bairro:Ibiti
-Cadastro:Tue Oct 24 15:52:36 BRT 2023
-CPF:123413212
-Maximas Parcelas:12
 end:end
 
 
