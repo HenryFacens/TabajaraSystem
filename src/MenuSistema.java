@@ -25,26 +25,6 @@ public class MenuSistema {
         DataLoader.carregarClientes();
         DataLoader.carregarProdutos();
 
-        // for (Object obj : Cliente.getClassesInstanciadas()) {
-        //     if (obj instanceof PessoaFisica) {
-        //         PessoaFisica pessoaFisica = (PessoaFisica) obj;
-        //         System.out.println(pessoaFisica.paraString());
-        //     } else if (obj instanceof PessoaJuridica) {
-        //         PessoaJuridica pessoaJuridica = (PessoaJuridica) obj;
-        //         System.out.println(pessoaJuridica.paraString());
-        //     }
-        // }
-
-        for (Object obj : Produto.getClassesInstanciadas()) {
-            if (obj instanceof Produto) {
-                Produto produto = (Produto) obj;
-                System.out.println(produto.paraString());
-            } else if (obj instanceof ProdutoPerecivel) {
-                ProdutoPerecivel produtoPerecivel = (ProdutoPerecivel) obj;
-                System.out.println(produtoPerecivel.paraString());
-            }
-        }
-
         while (true) {
             System.out.println(Cliente.getClassesInstanciadas());
             System.out.println(Produto.getClassesInstanciadas());
@@ -92,9 +72,7 @@ public class MenuSistema {
 
                             PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, dataCadastro, qntMaxParcelas, cpf);
 
-                            SalvarDados<PessoaFisica> salvar_cliente_fisico = new SalvarDados<>();
-
-                            salvar_cliente_fisico.salvar(pessoaFisica.paraString(), "cliente");
+                            SalvarDados.salvar(pessoaFisica.paraString(), "cliente");
 
                             gerenciador.adicionarCliente(pessoaFisica);
 
@@ -111,9 +89,8 @@ public class MenuSistema {
                             Date dataCadastroPJ = new Date(); // Supondo que a data de cadastro é a data atual
                             // if (new PessoaJuridica("", null, null, cnpj, "", 0).validarCPNJ(cnpj)) { // Validando o CNPJ
                             PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, dataCadastroPJ, cnpj, razaoSocial, prazoMaximo);
-                            SalvarDados<PessoaJuridica> salvar_cliente_juridico = new SalvarDados<>();
 
-                            salvar_cliente_juridico.salvar(pessoaJuridica.paraString(), "cliente");
+                            SalvarDados.salvar(pessoaJuridica.paraString(), "cliente");
 
                             gerenciador.adicionarCliente(pessoaJuridica);
 
@@ -131,6 +108,7 @@ public class MenuSistema {
                     break;
                 case 2:
                     // Lógica para deletar cliente pelo CPF ou CNPJ
+                    SalvarDados.reescreverLista(Cliente.getClassesInstanciadas(), "cliente");
                     break;
                 case 3:
                     // Lógica para deletar cliente pelo nome
@@ -147,12 +125,11 @@ public class MenuSistema {
                         "Tipo de produto", JOptionPane.DEFAULT_OPTION,
                         JOptionPane.INFORMATION_MESSAGE, null, options_produto, options_produto[0]
                     );
-                    
+
                     switch (tipoProduto){
                         case 0:
                             Produto produto = new Produto(valor, nome_produto, codigo, descricao);
-                            SalvarDados<Produto> salvar_produto = new SalvarDados<>();
-                            salvar_produto.salvar(produto.paraString(), "produto");
+                            SalvarDados.salvar(produto.paraString(), "produto");
                             produto_gerenciador.adicionarProduto(produto);
                             JOptionPane.showMessageDialog(null, "Produto não Perecível adicionado com sucesso!");
                             break;
@@ -163,8 +140,7 @@ public class MenuSistema {
                             try {
                                 Date data_validade = dateFormat.parse(dataValidadeStr);
                                 ProdutoPerecivel produto_perecivel = new ProdutoPerecivel(valor, nome_produto, codigo, descricao, data_validade);
-                                SalvarDados<ProdutoPerecivel> salvar_produto_perecivel = new SalvarDados<>();
-                                salvar_produto_perecivel.salvar(produto_perecivel.paraString(), "produto");
+                                SalvarDados.salvar(produto_perecivel.paraString(), "produto");
                                 produto_gerenciador.adicionarProduto(produto_perecivel);
                                 JOptionPane.showMessageDialog(null, "Produto Perecível adicionado com sucesso!");
                             } catch (ParseException e) {
