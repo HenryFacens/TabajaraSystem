@@ -23,6 +23,8 @@ import entidades.DataLoader;
 public class MenuSistema {
     public static void main(String[] args) {
         DataLoader.carregarClientes();
+        DataLoader.carregarProdutos();
+
         // for (Object obj : Cliente.getClassesInstanciadas()) {
         //     if (obj instanceof PessoaFisica) {
         //         PessoaFisica pessoaFisica = (PessoaFisica) obj;
@@ -166,6 +168,8 @@ public class MenuSistema {
                     // lógica para cadastro de produtos
                     break;
                 case 5:
+                    //String nomeProduto = JOptionPane.showInputDialog("Digite o nome do produto:");
+                    System.out.println(Produto.getClassesInstanciadas());
                     // Lógica para efetuação de uma compra
                     break;
                 case 6:

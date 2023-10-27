@@ -65,4 +65,74 @@ public class DataLoader {
             }
         }
     }
+
+    public static void carregarProdutos(){
+
+        String input = ControladorDados.ler("produto");
+        ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
+        String nome = null;
+        boolean ProdutoPronto = false;
+        boolean perecivelPronto = false;
+        Date dataValidade = null;
+        double valorProduto = -1;
+        int codigoProduto = -1;
+        String descricaoProduto = null;
+        boolean perecivel = false;
+
+
+        ArrayList<String> chaves = resultado.getChaves();
+        ArrayList<String> valores = resultado.getValores();
+
+        for (int i = 0; i < chaves.size(); i++){
+
+                if(perecivelPronto){
+                    ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto,nome, codigoProduto, descricaoProduto,dataValidade);
+                    perecivelPronto = false;
+                }
+                if (ProdutoPronto){
+                    Produto produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
+                    ProdutoPronto = false;
+                }
+                String key = chaves.get(i);
+                String value = valores.get(i);
+
+                if(key.equals("Tipo de Produto")){
+                    switch (value) {
+                        case "class entidades.Produto":
+                            perecivel = false;
+                            break;
+                        case "class entidades.ProdutoPerecivel":
+                            perecivel = true;
+                            break;
+                    }
+                }else {
+                    switch (key) {
+                        case "Nome":
+                            nome = value;
+                            break;
+                        case "Valor do Produto":
+                            valorProduto = Double.parseDouble(value);
+                            break;
+                        case "Código Produto":
+                            codigoProduto = Integer.parseInt(value);
+                            break;
+                        case "Descrição":
+                            descricaoProduto = value;
+                            break;
+                        case "Perecível":
+                            try {
+                                // Parse the date string into a Date object
+                                dataValidade = sdf.parse(value);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            break;
+                }
+
+            }
+        }
+
+    }
 }

@@ -57,9 +57,11 @@ public class SalvarDados<T> {
 
     public static void carregarBD() {
         String input = SalvarDados.ler("cliente");
+        String input2 = SalvarDados.ler("produto");
         Pattern pattern = Pattern.compile("([^:]+):\\s*(.*)");
         Matcher matcher = pattern.matcher(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
         boolean fisica = false;
 
         String nome = null;
@@ -80,7 +82,26 @@ public class SalvarDados<T> {
         boolean pessoaJuridicaPronta = false;
         boolean enderecoPronto = false;
 
+        double valorProduto = -1;
+        int codigoProduto = -1;
+        String descricaoProduto = null;
+        Date dataValidade = null;
+        Produto produto = null;
+        ProdutoPerecivel produtoPerecivel = null;
+        boolean ProdutoPronto = false;
+        boolean perecivelPronto = false;
+
+
+
         while (matcher.find()) {
+            if(ProdutoPronto){
+                produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
+                ProdutoPronto = false;
+            }
+            if(perecivelPronto){
+                produtoPerecivel = new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade);
+                perecivelPronto = false;
+            }
             if (enderecoPronto){
                 // System.out.println(nome + "," + qntMaxParcelas + "," + cpf + "," + rua + "," + numero + "," + cep + "," + cidade + "," + pais + "," + bairro + "," +  cnpj + "," + razaoSocial + "," + prazoMaximo);
                 endereco = new Endereco(rua,numero,cep,cidade,pais,bairro);
@@ -111,6 +132,13 @@ public class SalvarDados<T> {
 
                     case "class entidades.PessoaJuridica":
                         fisica = false;
+                        break;
+
+                    case "class entidades.ProdutoPerecivel":
+                        perecivelPronto = true;
+                        break;
+                    case "class entidades.Produto":
+                        ProdutoPronto = true;
                         break;
                 }
 
@@ -162,7 +190,30 @@ public class SalvarDados<T> {
                             e.printStackTrace();
                         }
                         break;
+                    case "Valor":
+                        // System.out.println(key + ": " + value);
+                        valorProduto = Double.parseDouble(value);
+                        break;
+                    case "Codigo":
+                        // System.out.println(key + ": " + value);
+                        codigoProduto = Integer.parseInt(value);
+                        break;
+                    case "Descrição":
+                        // System.out.println(key + ": " + value);
+                        descricaoProduto = value;
+                        break;
+                    case "Perecível":
+                        // System.out.println(key + ": " + value);
+                        try {
+                            // Parse the date string into a Date object
+                            dataValidade = sdf.parse(value);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
                    }
+
 
                 if (fisica){
                     switch (key){
