@@ -58,6 +58,6 @@ public class Produto {
     }
 
     public String paraString(){
-        return "Tipo: " + this.getClass() + "\nValor do Produto:" + valorProduto + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
+        return "Tipo:" + this.getClass() + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
     }
 }
