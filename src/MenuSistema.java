@@ -34,6 +34,17 @@ public class MenuSistema {
         //         System.out.println(pessoaJuridica.paraString());
         //     }
         // }
+
+        for (Object obj : Produto.getClassesInstanciadas()) {
+            if (obj instanceof Produto) {
+                Produto produto = (Produto) obj;
+                System.out.println(produto.paraString());
+            } else if (obj instanceof ProdutoPerecivel) {
+                ProdutoPerecivel produtoPerecivel = (ProdutoPerecivel) obj;
+                System.out.println(produtoPerecivel.paraString());
+            }
+        }
+
         while (true) {
             System.out.println(Cliente.getClassesInstanciadas());
             System.out.println(Produto.getClassesInstanciadas());

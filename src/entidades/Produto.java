@@ -16,7 +16,9 @@ public class Produto {
         this.nome = nome;
         this.codigoProduto = codigoProduto;
         this.descricaoProduto = descricaoProduto;
-        Produto.classesInstanciadas.add(this);
+        if (!(this instanceof ProdutoPerecivel)){
+            Produto.classesInstanciadas.add(this);
+        }
     }
     public static List<Object> getClassesInstanciadas() {
         return classesInstanciadas;

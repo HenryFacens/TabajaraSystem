@@ -82,15 +82,13 @@ public class DataLoader {
             if (valores.get(idxs.get(0)).equals("class entidades.Produto")){
                 Produto produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
             }else{
-                Date dataValidade = null;
                 try {
-                    dataValidade = sdf.parse(valores.get(idxs.get(5)));
+                    Date dataValidade = sdf.parse(valores.get(idxs.get(5)));
+                    ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto,nome, codigoProduto, descricaoProduto, dataValidade);
             }
-
         }
     }
 }
