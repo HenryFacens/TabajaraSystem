@@ -50,7 +50,6 @@ public class SalvarDados {
 
     public static void reescreverLista(List<Object> objetos, String arquivo){
         apagarDados(arquivo);
-
         for (Object obj : objetos) {
             if (obj instanceof PessoaFisica) {
                 PessoaFisica pessoaFisica = (PessoaFisica) obj;

@@ -26,8 +26,6 @@ public class MenuSistema {
         DataLoader.carregarProdutos();
 
         while (true) {
-            System.out.println(Cliente.getClassesInstanciadas());
-            System.out.println(Produto.getClassesInstanciadas());
             String input = JOptionPane.showInputDialog(null,
                     "Escolha uma opção:\n"
                             + "1. Cadastros de Clientes\n"
@@ -108,6 +106,24 @@ public class MenuSistema {
                     break;
                 case 2:
                     // Lógica para deletar cliente pelo CPF ou CNPJ
+                    String cpfOuCnpj = JOptionPane.showInputDialog("Digite o cpf ou cnpj:");
+                    List<Object> objs = Cliente.getClassesInstanciadas();
+                    for (Object obj : objs){
+                        if (obj instanceof PessoaFisica) {
+                            PessoaFisica pessoa = (PessoaFisica) obj;
+                                if (pessoa.getCpf().equals(cpfOuCnpj)){
+                                    objs.remove(obj);
+                                    break;
+                                }
+                        } else{
+                            PessoaJuridica pessoa = (PessoaJuridica) obj;
+                            if (pessoa.getCnpj().equals(cpfOuCnpj)){
+                                    objs.remove(obj);
+                                    break;
+                            }
+                        }
+                    }
+                    Cliente.setClassesInstanciadas(objs);
                     SalvarDados.reescreverLista(Cliente.getClassesInstanciadas(), "cliente");
                     break;
                 case 3:
