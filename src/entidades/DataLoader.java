@@ -17,14 +17,17 @@ import entidades.Endereco;
 
 public class DataLoader {
 
-    public static List<Integer> contarRepetido(String valor, ArrayList<String> lista) {
-        List<Integer> indices = new ArrayList<>();
+    public static List<List<Integer>> contarRepetido(String valor, ArrayList<String> lista) {
+        List<List<Integer>> allLists = new ArrayList<>();
+        List<Integer> newList = new ArrayList<>();
         for (int i = 0; i < lista.size(); i++) {
+            newList.add(i);
             if (lista.get(i).equals(valor)) {
-                indices.add(i);
+                allLists.add(newList);
+                newList = new ArrayList<>();
             }
         }
-        return indices;
+        return allLists;
     }
 
     public static void carregarClientes(){
@@ -32,36 +35,34 @@ public class DataLoader {
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
-        List<Integer> idxsCliente = contarRepetido("end", valores);
-        System.out.println(valores);
-        for (int idx : idxsCliente){
+        
+        for (List<Integer> idxs : contarRepetido("end", valores)){
             Date cadastro = null;
-            String nome = valores.get(1);
-            String rua = valores.get(2); 
-            String numero = valores.get(3);
-            String cep = valores.get(4); 
-            String cidade = valores.get(5); 
-            String pais = valores.get(6); 
-            String bairro = valores.get(7);
+            String nome = valores.get(idxs.get(1));
+            String rua = valores.get(idxs.get(2)); 
+            String numero = valores.get(idxs.get(3));
+            String cep = valores.get(idxs.get(4)); 
+            String cidade = valores.get(idxs.get(5)); 
+            String pais = valores.get(idxs.get(6)); 
+            String bairro = valores.get(idxs.get(7));
             Endereco endereco = new Endereco(rua,numero,cep,cidade,pais,bairro);
             try {
                 // Parse the date string into a Date object
-                cadastro = sdf.parse(valores.get(8));
+                cadastro = sdf.parse(valores.get(idxs.get(8)));
             } catch (ParseException e) {
                 e.printStackTrace();
             } //
 
-            if (valores.get(0).equals("class entidades.PessoaJuridica")){
-                String cnpj = valores.get(9);
-                String razaoSocial = valores.get(10);
-                int prazoMaximo =  Integer.parseInt(valores.get(11));
+            if (valores.get(idxs.get(0)).equals("class entidades.PessoaJuridica")){
+                String cnpj = valores.get(idxs.get(9));
+                String razaoSocial = valores.get(idxs.get(10));
+                int prazoMaximo =  Integer.parseInt(valores.get(idxs.get(11)));
                 PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, cadastro, cnpj, razaoSocial, prazoMaximo);
             }else{
-                String cpf = valores.get(9);
-                int qntMaxParcelas = Integer.parseInt(valores.get(10));       
+                String cpf = valores.get(idxs.get(9));
+                int qntMaxParcelas = Integer.parseInt(valores.get(idxs.get(10)));       
                 PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, cadastro, qntMaxParcelas, cpf);
             }
         }
-        
     }
 }

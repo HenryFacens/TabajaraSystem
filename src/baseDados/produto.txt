@@ -1,0 +1,16 @@
+Tipo de Produto:class entidades.Produto
+Valor do Produto:123.0
+Nome:123
+Código Produto:123
+Descrição:123
+end:end
+
+
+Tipo de Produto:class entidades.ProdutoPerecivel
+Nome:123
+Código Produto:123
+Descrição:123
+Perecível:Wed Dec 12 00:00:00 BRT 1212
+end:end
+
+
