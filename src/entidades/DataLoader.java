@@ -67,72 +67,30 @@ public class DataLoader {
     }
 
     public static void carregarProdutos(){
-
         String input = ControladorDados.ler("produto");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-
-        String nome = null;
-        boolean ProdutoPronto = false;
-        boolean perecivelPronto = false;
-        Date dataValidade = null;
-        double valorProduto = -1;
-        int codigoProduto = -1;
-        String descricaoProduto = null;
-        boolean perecivel = false;
-
-
-        ArrayList<String> chaves = resultado.getChaves();
         ArrayList<String> valores = resultado.getValores();
+        System.out.println(contarRepetido("end", valores));
 
-        for (int i = 0; i < chaves.size(); i++){
+        for (List<Integer> idxs : contarRepetido("end", valores)){
+            String nome = valores.get(idxs.get(1));
+            int codigoProduto = Integer.parseInt(valores.get(idxs.get(2)));;
+            double valorProduto = Double.parseDouble(valores.get(idxs.get(3)));;
+            String descricaoProduto = valores.get(idxs.get(4));
 
-                if(perecivelPronto){
-                    ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto,nome, codigoProduto, descricaoProduto,dataValidade);
-                    perecivelPronto = false;
+            if (valores.get(idxs.get(0)).equals("class entidades.Produto")){
+                Produto produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
+            }else{
+                Date dataValidade = null;
+                try {
+                    dataValidade = sdf.parse(valores.get(idxs.get(5)));
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                if (ProdutoPronto){
-                    Produto produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
-                    ProdutoPronto = false;
-                }
-                String key = chaves.get(i);
-                String value = valores.get(i);
-
-                if(key.equals("Tipo de Produto")){
-                    switch (value) {
-                        case "class entidades.Produto":
-                            perecivel = false;
-                            break;
-                        case "class entidades.ProdutoPerecivel":
-                            perecivel = true;
-                            break;
-                    }
-                }else {
-                    switch (key) {
-                        case "Nome":
-                            nome = value;
-                            break;
-                        case "Valor do Produto":
-                            valorProduto = Double.parseDouble(value);
-                            break;
-                        case "Código Produto":
-                            codigoProduto = Integer.parseInt(value);
-                            break;
-                        case "Descrição":
-                            descricaoProduto = value;
-                            break;
-                        case "Perecível":
-                            try {
-                                // Parse the date string into a Date object
-                                dataValidade = sdf.parse(value);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-                }
-
+                ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto,nome, codigoProduto, descricaoProduto, dataValidade);
             }
-        }
 
+        }
     }
 }

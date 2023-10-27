@@ -36,6 +36,7 @@ public class MenuSistema {
         // }
         while (true) {
             System.out.println(Cliente.getClassesInstanciadas());
+            System.out.println(Produto.getClassesInstanciadas());
             String input = JOptionPane.showInputDialog(null,
                     "Escolha uma opção:\n"
                             + "1. Cadastros de Clientes\n"

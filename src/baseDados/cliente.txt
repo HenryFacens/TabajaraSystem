@@ -12,6 +12,7 @@ Razão Social:123
 Prazo Máximo:123
 end:end
 
+
 Tipo:class entidades.PessoaFisica
 Nome:123
 Rua:123
@@ -25,6 +26,7 @@ CPF:121
 Maximas Parcelas:123
 end:end
 
+
 Tipo:class entidades.PessoaFisica
 Nome:123
 Rua:123
@@ -37,6 +39,7 @@ Cadastro:Mon Oct 23 16:14:41 BRT 2023
 CPF:122
 Maximas Parcelas:123
 end:end
+
 
 Tipo:class entidades.PessoaJuridica
 Nome:123
