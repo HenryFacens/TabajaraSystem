@@ -247,7 +247,7 @@ public class MenuSistema {
 
                             String[] produtosArray = new String[listaProduto.size()];
                             for (int i = 0; i < listaProduto.size(); i++) {
-                                produtosArray[i] = listaProduto.get(i).paraString();
+                                produtosArray[i] = listaProduto.get(i).paraStringCompra();
                             }
 
                             JComboBox<String> comboBox = new JComboBox<>(produtosArray);
