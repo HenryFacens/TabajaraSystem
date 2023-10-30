@@ -7,13 +7,16 @@ import entidades.Produto;
 import entidades.ProdutoPerecivel;
 import entidades.SalvarDados;
 import gerenciadores.ClienteGerenciador;
+import gerenciadores.CompraGerenciador;
 import gerenciadores.ProdutoGerenciador;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.xml.crypto.Data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -105,7 +108,6 @@ public class MenuSistema {
                     // Lógica para cadastros de clientes
                     break;
                 case 2:
-                    // Lógica para deletar cliente pelo CPF ou CNPJ
                     String cpfOuCnpj = JOptionPane.showInputDialog("Digite o cpf ou cnpj:");
                     List<Object> objs = Cliente.getClassesInstanciadas();
                     for (Object obj : objs){
@@ -191,8 +193,105 @@ public class MenuSistema {
                     // lógica para cadastro de produtos
                     break;
                 case 5:
-                    //String nomeProduto = JOptionPane.showInputDialog("Digite o nome do produto:");
-                    System.out.println(Produto.getClassesInstanciadas());
+                    CompraGerenciador compra_gerenciador = new CompraGerenciador();
+                    List<Object> clientes = Cliente.getClassesInstanciadas();
+                    boolean cliente_encontrado = false;
+
+                    String[] options_compra = {"Pessoa Fisíca", "Pessoa Juridica"};
+
+                    int tipoCliente_compra = JOptionPane.showOptionDialog(null, "Escolha o tipo de cliente:",
+                            "Tipo de Cliente", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null, options_compra, options_compra[0]
+                    );
+
+                    Cliente cliente_compra = null;
+
+                    if (tipoCliente_compra == 0) {
+                        String cpf = JOptionPane.showInputDialog("Digite o CPF do cliente:");
+                        for (Object obj : clientes) {
+                            if (obj instanceof PessoaFisica) {
+                                PessoaFisica cliente = (PessoaFisica) obj;
+                                if (cliente.getDocumento().equals(cpf)) {
+                                    cliente_encontrado = true;
+                                    cliente_compra = cliente;
+                                    break;
+                                }
+                            }
+                        }
+                    } else if (tipoCliente_compra == 1) {
+                        String cnpj = JOptionPane.showInputDialog("Digite o CNPJ do cliente:");
+                        for (Object obj : clientes) {
+                            if (obj instanceof PessoaJuridica) {
+                                PessoaJuridica cliente = (PessoaJuridica) obj;
+                                if (cliente.getDocumento().equals(cnpj)) {
+                                    cliente_encontrado = true;
+                                    cliente_compra = cliente;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!cliente_encontrado) {
+                        JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
+                    } else {
+
+                        List<Produto> carrinho = new ArrayList<>();
+
+                        DataLoader.carregarProdutos();
+                        List<Produto> listaProduto = DataLoader.getProdutos();
+
+                        boolean continuarComprando = true;
+
+                        while (continuarComprando && !listaProduto.isEmpty()) { 
+
+                            String[] produtosArray = new String[listaProduto.size()];
+                            for (int i = 0; i < listaProduto.size(); i++) {
+                                produtosArray[i] = listaProduto.get(i).paraString();
+                            }
+
+                            JComboBox<String> comboBox = new JComboBox<>(produtosArray);
+
+                            int response = JOptionPane.showConfirmDialog(null, comboBox, "Selecione um produto",
+                                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                            if (response == JOptionPane.OK_OPTION) {
+                                int indexSelecionado = comboBox.getSelectedIndex();
+                                Produto produtoSelecionado = listaProduto.get(indexSelecionado);
+                                carrinho.add(produtoSelecionado);
+                                listaProduto.remove(indexSelecionado);
+                            }
+
+                            int continuar = JOptionPane.showConfirmDialog(null, "Deseja adicionar mais produtos ao carrinho?",
+                                    "Continuar comprando", JOptionPane.YES_NO_OPTION);
+
+                            continuarComprando = (continuar == JOptionPane.YES_OPTION);
+                        }
+
+                        StringBuilder resumoCompra = new StringBuilder();
+                        double total = 0;
+                        for (Produto produto : carrinho) {
+                            resumoCompra.append(produto.paraString()).append("\n");
+                            total += produto.getPreco();
+                        }
+
+                        resumoCompra.append("\nTotal a pagar: ").append(total);
+
+                        JOptionPane.showMessageDialog(null, resumoCompra.toString(), "Finalizar Compra", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        SalvarDados.limparArquivo("produto");
+                        
+                        for (Produto produto : listaProduto) {
+                            if (produto instanceof ProdutoPerecivel) {
+                                SalvarDados.salvar(produto.paraString(), "produto");
+                            } else {
+                                SalvarDados.salvar(produto.paraString(), "produto");
+                            }
+                        }
+
+                    }
+
+
                     // Lógica para efetuação de uma compra
                     break;
                 case 6:

@@ -27,7 +27,7 @@ import entidades.PessoaJuridica;
 
 public class SalvarDados {
 
-    private static final String DEFAULT_DIRETORIO = "./baseDados/";
+    private static final String DEFAULT_DIRETORIO = "src/baseDados/";
 
     public static void salvar(String dado, String arquivo) {
         String caminhoCompleto = DEFAULT_DIRETORIO + arquivo + ".txt";
@@ -66,4 +66,15 @@ public class SalvarDados {
             }
         }
     }
+    public static void limparArquivo(String tipo) {
+        try {
+            String nomeArquivo = DEFAULT_DIRETORIO + tipo + ".txt";
+            FileWriter fw = new FileWriter(nomeArquivo, false);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

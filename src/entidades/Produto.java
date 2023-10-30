@@ -59,6 +59,10 @@ public class Produto {
         this.descricaoProduto = descricaoProduto;
     }
 
+    public float getPreco(){
+        return (float) this.valorProduto;
+    }
+
     public String paraString(){
         return "Tipo:" + this.getClass() + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
     }

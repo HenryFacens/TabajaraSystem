@@ -1,5 +1,7 @@
 package entidades;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,9 @@ import entidades.PessoaJuridica;
 import entidades.Endereco;
 
 public class DataLoader {
+
+    private static List<Produto> produtos = new ArrayList<>();
+
 
     public static List<List<Integer>> contarRepetido(String valor, ArrayList<String> lista) {
         List<List<Integer>> allLists = new ArrayList<>();
@@ -67,27 +72,37 @@ public class DataLoader {
     }
 
     public static void carregarProdutos(){
+        produtos.clear(); // Limpe a lista antes de carregar novos produtos
+    
         String input = ControladorDados.ler("produto");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
-
+    
         for (List<Integer> idxs : contarRepetido("end", valores)){
             String nome = valores.get(idxs.get(1));
-            int codigoProduto = Integer.parseInt(valores.get(idxs.get(2)));;
-            double valorProduto = Double.parseDouble(valores.get(idxs.get(3)));;
+            int codigoProduto = Integer.parseInt(valores.get(idxs.get(2)));
+            double valorProduto = Double.parseDouble(valores.get(idxs.get(3)));
             String descricaoProduto = valores.get(idxs.get(4));
-
+    
             if (valores.get(idxs.get(0)).equals("class entidades.Produto")){
                 Produto produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
+                produtos.add(produto); // Adicione o produto à lista
             }else{
                 try {
                     Date dataValidade = sdf.parse(valores.get(idxs.get(5)));
                     ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade);
+                    produtos.add(produtoPerecivel); // Adicione o produto perecível à lista
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
+    
+    public static List<Produto> getProdutos(){
+        return produtos;
+    }
+
+
 }

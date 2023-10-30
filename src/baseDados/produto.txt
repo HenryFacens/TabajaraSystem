@@ -1,25 +1,9 @@
-Tipo:class entidades.Produto
-Nome:123
-Código Produto:123
-Valor do Produto:123.0
-Descrição:123
-end:end
-
-
 Tipo:class entidades.ProdutoPerecivel
 Nome:123
 Código Produto:123
 Valor do Produto:123.0
 Descrição:123
 Perecível:Wed Dec 12 00:00:00 BRT 1212
-end:end
-
-
-Tipo:class entidades.Produto
-Nome:123
-Código Produto:123
-Valor do Produto:123.0
-Descrição:123
 end:end
 
 

@@ -13,7 +13,7 @@ import entidades.ResultadoChaveValor;
 
 
 public class ControladorDados {
-    private static final String DIRETORIO_DEFAULT = "./baseDados/";
+    private static final String DIRETORIO_DEFAULT = "src/baseDados/";
 
     public static String ler(String nomeArquivo) {
         String caminhoCompleto = DIRETORIO_DEFAULT + nomeArquivo + ".txt";
