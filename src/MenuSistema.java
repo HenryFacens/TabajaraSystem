@@ -193,7 +193,6 @@ public class MenuSistema {
                     // lógica para cadastro de produtos
                     break;
                 case 5:
-                    CompraGerenciador compra_gerenciador = new CompraGerenciador();
                     List<Object> clientes = Cliente.getClassesInstanciadas();
                     boolean cliente_encontrado = false;
 
@@ -237,6 +236,7 @@ public class MenuSistema {
                     } else {
 
                         List<Produto> carrinho = new ArrayList<>();
+                        String carrinhoCompras = "";
 
                         DataLoader.carregarProdutos();
                         List<Produto> listaProduto = DataLoader.getProdutos();
@@ -269,6 +269,7 @@ public class MenuSistema {
                         }
 
                         StringBuilder resumoCompra = new StringBuilder();
+
                         double total = 0;
                         for (Produto produto : carrinho) {
                             resumoCompra.append(produto.paraString()).append("\n");
@@ -278,7 +279,12 @@ public class MenuSistema {
                         resumoCompra.append("\nTotal a pagar: ").append(total);
 
                         JOptionPane.showMessageDialog(null, resumoCompra.toString(), "Finalizar Compra", JOptionPane.INFORMATION_MESSAGE);
+
+                        carrinhoCompras = resumoCompra.toString();
                         
+                        CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras);
+                        System.out.println(compra);
+
                         SalvarDados.limparArquivo("produto");
                         
                         for (Produto produto : listaProduto) {

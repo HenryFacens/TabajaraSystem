@@ -1,18 +1,103 @@
 Tipo:class entidades.ProdutoPerecivel
-Nome:123
-Código Produto:123
-Valor do Produto:123.0
-Descrição:123
-Perecível:Wed Dec 12 00:00:00 BRT 1212
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
 end:end
 
 
 Tipo:class entidades.ProdutoPerecivel
-Nome:123
-Código Produto:123
-Valor do Produto:123.0
-Descrição:123
-Perecível:Wed Dec 12 00:00:00 BRT 1212
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
+end:end
+
+
+Tipo:class entidades.ProdutoPerecivel
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
+end:end
+
+
+Tipo:class entidades.Produto
+Nome:Geladeira
+Código Produto:85
+Valor do Produto:3400.0
+Descrição:Geladeira Brastemp
+end:end
+
+
+Tipo:class entidades.ProdutoPerecivel
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
+end:end
+
+
+Tipo:class entidades.Produto
+Nome:Geladeira
+Código Produto:85
+Valor do Produto:3400.0
+Descrição:Geladeira Brastemp
+end:end
+
+
+Tipo:class entidades.ProdutoPerecivel
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
+end:end
+
+
+Tipo:class entidades.Produto
+Nome:Geladeira
+Código Produto:85
+Valor do Produto:3400.0
+Descrição:Geladeira Brastemp
+end:end
+
+
+Tipo:class entidades.ProdutoPerecivel
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
+end:end
+
+
+Tipo:class entidades.Produto
+Nome:Geladeira
+Código Produto:85
+Valor do Produto:3400.0
+Descrição:Geladeira Brastemp
+end:end
+
+
+Tipo:class entidades.ProdutoPerecivel
+Nome:Banana
+Código Produto:626
+Valor do Produto:10.0
+Descrição:Sim
+Perecível:Wed Jun 11 00:00:00 BRT 2003
+end:end
+
+
+Tipo:class entidades.Produto
+Nome:Geladeira
+Código Produto:85
+Valor do Produto:3400.0
+Descrição:Geladeira Brastemp
 end:end
 
 
