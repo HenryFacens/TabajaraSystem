@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Compra {
 
+    private static int ultimoIdentificador = 0;
+
     private List<ItensPedidos> lista = new ArrayList<>();
     private final String indentificador;
     private Date data;
@@ -13,19 +15,20 @@ public class Compra {
     private double valorTotal;
     private Cliente cliente;
     private String produtos;
+    private boolean pago;
     
     private final String documento;
 
-    public Compra(List<ItensPedidos> lista, String indentificador, Date data, String documento) {
+    public Compra(List<ItensPedidos> lista, Date data, String documento) {
         this.lista = lista;
-        this.indentificador = indentificador;
+        this.indentificador = String.valueOf(++ultimoIdentificador);
         this.data = data;
         this.valorTotal = calcularValorTotal();
         this.documento = documento;
     }
 
     public Compra(Cliente cliente, String produtos) {
-        this(new ArrayList<>(), "1", new Date(), cliente.getDocumento());
+        this(new ArrayList<>(), new Date(), cliente.getDocumento());
         this.cliente = cliente;
         this.produtos = produtos;
     }
@@ -38,17 +41,23 @@ public class Compra {
         return total;
     }
 
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+
+    public boolean getPago() {
+        return pago;
+    }
+
     public String paraString(){
-        return "Compra{" +
-                "lista=" + lista +
-                ", indentificador='" + indentificador + '\'' +
-                ", data=" + data +
-                ", valorPago=" + valorPago +
-                ", valorTotal=" + valorTotal +
-                ", cliente=" + cliente +
-                ", produtos=" + produtos +
-                ", documento='" + documento + '\'' +
-                '}';
+        return  "\n" + "\n" + "lista:" + lista + "\n" +
+                "indentificador:" + indentificador + '\n' +
+                "pago:" + pago + '\n' +
+                "data:" + data + '\n' +
+                "cliente:" + cliente + '\n' +
+                "produtos:" + produtos + '\n' +
+                "documento:" + documento + '\n' +
+                "end:end" + "\n";
     }
 
 

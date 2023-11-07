@@ -12,7 +12,6 @@ import gerenciadores.ProdutoGerenciador;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.xml.crypto.Data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import entidades.ControladorDados;
-import entidades.ResultadoChaveValor;
 import entidades.DataLoader;
 public class MenuSistema {
     public static void main(String[] args) {
@@ -194,6 +191,7 @@ public class MenuSistema {
                     break;
                 case 5:
                     List<Object> clientes = Cliente.getClassesInstanciadas();
+                    
                     boolean cliente_encontrado = false;
 
                     String[] options_compra = {"Pessoa Fisíca", "Pessoa Juridica"};
@@ -283,6 +281,7 @@ public class MenuSistema {
                         carrinhoCompras = resumoCompra.toString();
                         
                         CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras);
+
                         System.out.println(compra);
 
                         SalvarDados.limparArquivo("produto");
@@ -301,6 +300,13 @@ public class MenuSistema {
                     // Lógica para efetuação de uma compra
                     break;
                 case 6:
+                    String[] opcoesMudancas = {"Pessoa Fisíca", "Pessoa Juridica"};
+
+                   int tipoDeCliente = JOptionPane.showOptionDialog(null, "Escolha o tipo de cliente:",
+                    "Tipo de Cliente", JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE, null, opcoesMudancas, opcoesMudancas[0]
+                    );
+
                     // Lógica para atualização da situação de pagamento de uma compra
                     break;
                 case 7:

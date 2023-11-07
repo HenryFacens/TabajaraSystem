@@ -45,4 +45,5 @@ public class ItensPedidos {
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
+    
 }

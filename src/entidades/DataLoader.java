@@ -20,6 +20,7 @@ import entidades.Endereco;
 public class DataLoader {
 
     private static List<Produto> produtos = new ArrayList<>();
+    private static List<Compra> compras = new ArrayList<>();
 
 
     public static List<List<Integer>> contarRepetido(String valor, ArrayList<String> lista) {
@@ -99,9 +100,65 @@ public class DataLoader {
             }
         }
     }
+
+    public static List<Compra> carregarCompras(String textoArquivo) throws ParseException {
+        List<Compra> compras = new ArrayList<>();
+    
+        // Suponha que "textoArquivo" é uma String com o conteúdo inteiro do arquivo "compras.txt".
+        String[] blocosCompra = textoArquivo.split("end:end\n\n"); // Separa cada compra
+    
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+    
+        for (String bloco : blocosCompra) {
+            // Divide os blocos de uma única compra
+            String[] linhas = bloco.split("\n");
+    
+            // Aqui você extrairá os dados da compra das linhas
+            // Vamos inicializar algumas variáveis que precisaremos
+            String identificador = "";
+            Date data = null;
+            String documento = "";
+            List<ItensPedidos> itens = new ArrayList<>();
+    
+            for (String linha : linhas) {
+                if (linha.startsWith("indentificador:")) {
+                    identificador = linha.replace("indentificador:", "").trim();
+                } else if (linha.startsWith("data:")) {
+                    String dataTexto = linha.replace("data:", "").trim();
+                    data = sdf.parse(dataTexto);
+                } else if (linha.startsWith("documento:")) {
+                    documento = linha.replace("documento:", "").trim();
+                } else if (linha.startsWith("Nome:")) {
+                    // Assumindo que os itens de pedidos sempre começam com "Nome:"
+                    // Crie um novo objeto ItensPedidos e adicione à lista
+                    // Você precisará ajustar de acordo com o seu construtor e os atributos reais
+                    String nome = linha.replace("Nome:", "").trim();
+                    // Repita o processo para código do produto, valor e descrição
+                    // Suponha que temos métodos auxiliares para obter esses valores
+                    int codigoProduto = obterCodigoProduto(linhas);
+                    double valorProduto = obterValorProduto(linhas);
+                    String descricao = obterDescricaoProduto(linhas);
+                    
+                    ItensPedidos item = new ItensPedidos(nome, codigoProduto, valorProduto, descricao);
+                    itens.add(item);
+                }
+                // E assim por diante para extrair todos os campos necessários
+            }
+    
+            // Agora você tem todos os dados necessários para criar um objeto Compra
+            Compra compra = new Compra(itens, identificador, data, documento);
+            compras.add(compra);
+        }
+    
+        return compras;
+    }
     
     public static List<Produto> getProdutos(){
         return produtos;
+    }
+    public static List<Compra> getCompras(){
+        return compras;
+        
     }
 
 

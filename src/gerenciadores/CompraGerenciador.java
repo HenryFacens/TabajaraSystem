@@ -1,10 +1,6 @@
 package gerenciadores;
-
-import java.util.List;
-
 import entidades.Cliente;
 import entidades.Compra;
-import entidades.Produto;
 import entidades.SalvarDados;
 
 

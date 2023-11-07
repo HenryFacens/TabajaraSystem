@@ -1,6 +1,5 @@
 package entidades;
 
-import javax.swing.*;
 import java.util.Date;
 
 public class PessoaFisica extends Cliente{
