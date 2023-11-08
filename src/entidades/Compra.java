@@ -50,14 +50,11 @@ public class Compra {
     }
 
     public String paraString(){
-        return  "\n" + "\n" + "lista:" + lista + "\n" +
-                "indentificador:" + indentificador + '\n' +
+        return  "indentificador:" + indentificador + '\n' +
                 "pago:" + pago + '\n' +
-                "data:" + data + '\n' +
-                "cliente:" + cliente + '\n' +
-                "produtos:" + produtos + '\n' +
-                "documento:" + documento + '\n' +
-                "end:end" + "\n";
+                "data:" + data + '\n'
+                + produtos + '\n' +
+                "documento:" + documento + '\n'+ "end:end\n\n";
     }
 
 

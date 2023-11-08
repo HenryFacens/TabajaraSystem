@@ -27,3 +27,15 @@ Prazo Máximo:24
 end:end
 
 
+Tipo:class entidades.PessoaFisica
+Nome:Henry
+Rua:Maria Terci
+Numero:382
+CEP:18085610
+Cidade:Sorocaba
+Pais:Brasil
+Bairro:Morumbi
+Cadastro:Sun Nov 05 16:12:17 BRT 2023
+CPF:1
+Maximas Parcelas:6
+end:end

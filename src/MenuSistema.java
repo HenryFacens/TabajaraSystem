@@ -270,11 +270,11 @@ public class MenuSistema {
 
                         double total = 0;
                         for (Produto produto : carrinho) {
-                            resumoCompra.append(produto.paraString()).append("\n");
+                            resumoCompra.append(produto.paraStringCompra()).append("\n");
                             total += produto.getPreco();
                         }
 
-                        resumoCompra.append("\nTotal a pagar: ").append(total);
+                        resumoCompra.append("Total a pagar: ").append(total);
 
                         JOptionPane.showMessageDialog(null, resumoCompra.toString(), "Finalizar Compra", JOptionPane.INFORMATION_MESSAGE);
 
@@ -300,12 +300,9 @@ public class MenuSistema {
                     // Lógica para efetuação de uma compra
                     break;
                 case 6:
-                    String[] opcoesMudancas = {"Pessoa Fisíca", "Pessoa Juridica"};
+                    String indentificao = JOptionPane.showInputDialog("Digite o codigo:");
 
-                   int tipoDeCliente = JOptionPane.showOptionDialog(null, "Escolha o tipo de cliente:",
-                    "Tipo de Cliente", JOptionPane.DEFAULT_OPTION,
-                            JOptionPane.INFORMATION_MESSAGE, null, opcoesMudancas, opcoesMudancas[0]
-                    );
+                    
 
                     // Lógica para atualização da situação de pagamento de uma compra
                     break;
