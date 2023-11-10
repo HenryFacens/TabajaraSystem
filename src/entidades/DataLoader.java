@@ -85,13 +85,16 @@ public class DataLoader {
             int codigoProduto = Integer.parseInt(valores.get(idxs.get(2)));
             double valorProduto = Double.parseDouble(valores.get(idxs.get(3)));
             String descricaoProduto = valores.get(idxs.get(4));
-    
+
             if (valores.get(idxs.get(0)).equals("class entidades.Produto")){
-                new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
+                int quantidade = Integer.parseInt(valores.get(idxs.get(5)));
+                new Produto(valorProduto, nome, codigoProduto, descricaoProduto, quantidade);
             }else{
                 try {
                     Date dataValidade = sdf.parse(valores.get(idxs.get(5)));
-                    new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade); // Adicione o produto perecível à lista
+                    int quantidade =  Integer.parseInt(valores.get(idxs.get(6)));
+
+                    new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade, quantidade); // Adicione o produto perecível à lista
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -119,9 +122,9 @@ public class DataLoader {
     public static List<Produto> getProdutos(){
         return produtos;
     }
+
     public static List<Compra> getCompras(){
         return compras;
-
     }
 
 

@@ -10,8 +10,9 @@ public class Produto {
     private String nome;
     private int codigoProduto;
     private String descricaoProduto;
+    private int quantidade;
 
-    public Produto(double valorProduto, String nome, int codigoProduto, String descricaoProduto) {
+    public Produto(double valorProduto, String nome, int codigoProduto, String descricaoProduto, int quantidade) {
         this.valorProduto = valorProduto;
         this.nome = nome;
         this.codigoProduto = codigoProduto;
@@ -19,8 +20,9 @@ public class Produto {
         if (!(this instanceof ProdutoPerecivel)){
             Produto.classesInstanciadas.add(this);
         }
+        this.quantidade = quantidade;
     }
-    
+
     public static List<Object> getClassesInstanciadas() {
         return classesInstanciadas;
     }
@@ -28,6 +30,7 @@ public class Produto {
     public static void setClassesInstanciadas(List<Object> novasClassesInstanciadas){
         classesInstanciadas =  novasClassesInstanciadas;
     }
+
     public double getValorProduto() {
         return valorProduto;
     }
@@ -65,9 +68,20 @@ public class Produto {
     }
 
     public String paraString(){
-        return "Tipo:" + this.getClass() + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
+        return "Tipo:" + this.getClass() + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto + "\nQuantidade:" + quantidade + "\nend:end" + "\n\n";
     }
+
     public String paraStringCompra(){
         return "Nome:" + nome + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto;
     }
+
+    public int getQuantidade(){
+        return this.quantidade;
+    }
+
+    public void setQuantidade(int quantidade){
+        this.quantidade = quantidade;
+    }
+
 }
+    

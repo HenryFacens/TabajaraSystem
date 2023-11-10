@@ -57,5 +57,9 @@ public class Compra {
                 "documento:" + documento + '\n'+ "end:end\n\n";
     }
 
+    public void incrCompraID(int quant){
+        ultimoIdentificador += quant;
+    }
+
 
 }

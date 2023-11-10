@@ -105,6 +105,7 @@ public class MenuSistema {
 
                     // Lógica para cadastros de clientes
                     break;
+
                 case 2:
                     String cpfOuCnpj = JOptionPane.showInputDialog("Digite o cpf ou cnpj:");
                     List<Object> objs = Cliente.getClassesInstanciadas();
@@ -123,9 +124,11 @@ public class MenuSistema {
                             }
                         }
                     }
+
                     Cliente.setClassesInstanciadas(objs);
                     SalvarDados.reescreverLista(Cliente.getClassesInstanciadas(), "cliente");
                     break;
+
                 case 3:
                     // Lógica para deletar cliente pelo nome
                     String nomeCliente = JOptionPane.showInputDialog("Digite o nome do cliente:");
@@ -145,15 +148,18 @@ public class MenuSistema {
                             }
                         }
                     }
+
                     Cliente.setClassesInstanciadas(clienteObjs);
                     SalvarDados.reescreverLista(Cliente.getClassesInstanciadas(), "cliente");
                     break;
+
                 case 4:
                     ProdutoGerenciador produto_gerenciador = new ProdutoGerenciador();
                     String nome_produto = JOptionPane.showInputDialog("Digite o nome do produto:");
                     Integer codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código do produto:"));
                     Double valor = Double.parseDouble(JOptionPane.showInputDialog("Digite o valor do produto:"));
                     String descricao = JOptionPane.showInputDialog("Digite uma breve descricao do produto:");
+                    Integer quantidade = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade do produto:"));
 
                     String[] options_produto = {"Produto não Perecível", "Produto Perecível"};
                     int tipoProduto = JOptionPane.showOptionDialog(null, "Escolha o tipo de produto:",
@@ -163,10 +169,9 @@ public class MenuSistema {
 
                     switch (tipoProduto){
                         case 0:
-                            Produto produto = new Produto(valor, nome_produto, codigo, descricao);
+                            Produto produto = new Produto(valor, nome_produto, codigo, descricao, quantidade);
                             SalvarDados.salvar(produto.paraString(), "produto");
                             produto_gerenciador.adicionarProduto(produto);
-                            JOptionPane.showMessageDialog(null, "Produto não Perecível adicionado com sucesso!");
                             break;
 
                         case 1:
@@ -174,24 +179,25 @@ public class MenuSistema {
                             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                             try {
                                 Date data_validade = dateFormat.parse(dataValidadeStr);
-                                ProdutoPerecivel produto_perecivel = new ProdutoPerecivel(valor, nome_produto, codigo, descricao, data_validade);
+                                ProdutoPerecivel produto_perecivel = new ProdutoPerecivel(valor, nome_produto, codigo, descricao, data_validade, quantidade);
                                 SalvarDados.salvar(produto_perecivel.paraString(), "produto");
                                 produto_gerenciador.adicionarProduto(produto_perecivel);
-                                JOptionPane.showMessageDialog(null, "Produto Perecível adicionado com sucesso!");
                             } catch (ParseException e) {
                                 JOptionPane.showMessageDialog(null, "A data inserida não está no formato correto (dd/MM/yyyy)");
                             }
                             break;
 
-                        default:
+                            default:
                             JOptionPane.showMessageDialog(null, "Opção inválida!");
                             break;
-                    }
-
-                    // lógica para cadastro de produtos
-                    break;
-                case 5:
-                    List<Object> clientes = Cliente.getClassesInstanciadas();
+                        }
+                        JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
+                        // lógica para cadastro de produtos
+                        break;
+                        
+                    case 5:
+                        List<Object> listaProduto = Produto.getClassesInstanciadas();
+                        List<Object> clientes = Cliente.getClassesInstanciadas();
                     
                     boolean cliente_encontrado = false;
 
@@ -216,6 +222,7 @@ public class MenuSistema {
                                 }
                             }
                         }
+
                     } else if (tipoCliente_compra == 1) {
                         String cnpj = JOptionPane.showInputDialog("Digite o CNPJ do cliente:");
                         for (Object obj : clientes) {
@@ -234,30 +241,60 @@ public class MenuSistema {
                         JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
                     } else {
 
-                        List<Produto> carrinho = new ArrayList<>();
+                        List<Object> carrinho = new ArrayList<>();
                         String carrinhoCompras = "";
 
-                        List<Object> listaProduto = Produto.getClassesInstanciadas();
                         boolean continuarComprando = true;
-
+                        int i = 0;
                         while (continuarComprando && !listaProduto.isEmpty()) { 
-
                             String[] produtosArray = new String[listaProduto.size()];
-                            for (int i = 0; i < listaProduto.size(); i++) {
-                                produtosArray[i] = listaProduto.get(i).paraStringCompra();
+                            for (Object obj: listaProduto){
+                                if (obj instanceof ProdutoPerecivel){
+                                    ProdutoPerecivel objProd  = (ProdutoPerecivel) obj; 
+                                    produtosArray[i] = objProd.paraString();
+                                }
+                                else{
+                                    Produto objProd  = (Produto) obj; 
+                                    produtosArray[i] = objProd.paraString();
+                                }
+                                i++;
                             }
 
                             JComboBox<String> comboBox = new JComboBox<>(produtosArray);
 
                             int response = JOptionPane.showConfirmDialog(null, comboBox, "Selecione um produto",
                                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
+                            int qtd = 0;
                             if (response == JOptionPane.OK_OPTION) {
                                 int indexSelecionado = comboBox.getSelectedIndex();
-                                Produto produtoSelecionado = listaProduto.get(indexSelecionado);
+                                Object produtoSelecionado = listaProduto.get(indexSelecionado);
                                 carrinho.add(produtoSelecionado);
+                                if (produtoSelecionado instanceof ProdutoPerecivel){
+                                    ProdutoPerecivel prod = (ProdutoPerecivel) produtoSelecionado;
+                                    qtd = prod.getQuantidade();
+                                }else{
+                                    Produto prod = (Produto) produtoSelecionado;
+                                    qtd = prod.getQuantidade();
+                                }
+                                Integer quantidadePedida = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade do produto (disponível: " + qtd + ")"));
+                                if (quantidadePedida > qtd){
+                                    JOptionPane.showMessageDialog(null, "Opção inválida!");
+                                    break;
+                                }
                                 listaProduto.remove(indexSelecionado);
+
+                                if (produtoSelecionado instanceof ProdutoPerecivel){
+                                    ProdutoPerecivel prod = (ProdutoPerecivel) produtoSelecionado;
+                                    prod.setQuantidade(qtd-quantidadePedida);
+                                    listaProduto.add(prod);
+                                }else{
+                                    Produto prod = (Produto) produtoSelecionado;
+                                    prod.setQuantidade(qtd-quantidadePedida);
+                                    listaProduto.add(prod);
+                                }
                             }
+
+                            SalvarDados.reescreverLista(listaProduto, "compras");
 
                             int continuar = JOptionPane.showConfirmDialog(null, "Deseja adicionar mais produtos ao carrinho?",
                                     "Continuar comprando", JOptionPane.YES_NO_OPTION);
@@ -268,9 +305,17 @@ public class MenuSistema {
                         StringBuilder resumoCompra = new StringBuilder();
 
                         double total = 0;
-                        for (Produto produto : carrinho) {
-                            resumoCompra.append(produto.paraStringCompra()).append("\n");
-                            total += produto.getPreco();
+                        for (Object produto : carrinho) {
+                            if (produto instanceof ProdutoPerecivel) {
+                                ProdutoPerecivel prodPer = (ProdutoPerecivel) produto;
+                                resumoCompra.append(prodPer.paraStringCompra()).append("\n");
+                                total += prodPer.getPreco();
+
+                            } else {
+                                Produto prod = (Produto) produto;
+                                resumoCompra.append(prod.paraStringCompra()).append("\n");
+                                total += prod.getPreco();
+                            }
                         }
 
                         resumoCompra.append("Total a pagar: ").append(total);
@@ -281,27 +326,25 @@ public class MenuSistema {
                         
                         CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras);
 
-                        System.out.println(compra);
-
                         SalvarDados.limparArquivo("produto");
-                        
-                        for (Produto produto : listaProduto) {
+
+                        for (Object produto : listaProduto) {
                             if (produto instanceof ProdutoPerecivel) {
-                                SalvarDados.salvar(produto.paraString(), "produto");
+                                ProdutoPerecivel prodPer = (ProdutoPerecivel) produto;
+                                SalvarDados.salvar(prodPer.paraString(), "produto");
                             } else {
-                                SalvarDados.salvar(produto.paraString(), "produto");
+                                Produto prodPer = (Produto) produto;
+                                SalvarDados.salvar(prodPer.paraString(), "produto");
                             }
                         }
-
                     }
 
 
                     // Lógica para efetuação de uma compra
+                    Produto.setClassesInstanciadas(listaProduto);
                     break;
                 case 6:
                     String indentificao = JOptionPane.showInputDialog("Digite o codigo:");
-
-                    
 
                     // Lógica para atualização da situação de pagamento de uma compra
                     break;
