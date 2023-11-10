@@ -27,7 +27,7 @@ import entidades.PessoaJuridica;
 
 public class SalvarDados {
 
-    private static final String DEFAULT_DIRETORIO = "src/baseDados/";
+    private static final String DEFAULT_DIRETORIO = "./baseDados/";
 
     public static void salvar(String dado, String arquivo) {
         String caminhoCompleto = DEFAULT_DIRETORIO + arquivo + ".txt";

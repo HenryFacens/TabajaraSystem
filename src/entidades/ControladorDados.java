@@ -11,15 +11,11 @@ import java.util.ArrayList;
 import entidades.ResultadoChaveValor;
 
 
-
 public class ControladorDados {
-    private static final String DIRETORIO_DEFAULT = "src/baseDados/";
-
-    public static String ler(String nomeArquivo) {
-        String caminhoCompleto = DIRETORIO_DEFAULT + nomeArquivo + ".txt";
+    public static String ler(String arquivo) {
         StringBuilder conteudo = new StringBuilder();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoCompleto))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(arquivo))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 conteudo.append(linha).append("\n");

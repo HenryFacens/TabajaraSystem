@@ -1,41 +1,28 @@
 Tipo:class entidades.PessoaFisica
-Nome:Henry
-Rua:Maria Terci
-Numero:382
-CEP:18085610
-Cidade:Sorocaba
-Pais:Brasil
-Bairro:Morumbi
-Cadastro:Sun Nov 05 16:12:17 BRT 2023
-CPF:50185221866
-Maximas Parcelas:6
+Nome:123
+Rua:123
+Numero:123
+CEP:123
+Cidade:123
+Pais:12
+Bairro:123
+Cadastro:Thu Nov 09 09:41:26 BRT 2023
+CPF:123
+Maximas Parcelas:1
 end:end
 
 
 Tipo:class entidades.PessoaJuridica
-Nome:Antonio
-Rua:Rua Saia Azul
-Numero:404
-CEP:56741-290
-Cidade:Cotia
-Pais:Brasil
-Bairro:Quintos dos Anjicos
-Cadastro:Sun Nov 05 16:16:30 BRT 2023
-CNPJ:88584860000160
-Razão Social:Tquiper
-Prazo Máximo:24
+Nome:123
+Rua:123
+Numero:123
+CEP:12312
+Cidade:1231
+Pais:1323
+Bairro:123
+Cadastro:Thu Nov 09 09:41:40 BRT 2023
+CNPJ:123
+Razão Social:123
+Prazo Máximo:123
 end:end
 
-
-Tipo:class entidades.PessoaFisica
-Nome:Henry
-Rua:Maria Terci
-Numero:382
-CEP:18085610
-Cidade:Sorocaba
-Pais:Brasil
-Bairro:Morumbi
-Cadastro:Sun Nov 05 16:12:17 BRT 2023
-CPF:1
-Maximas Parcelas:6
-end:end

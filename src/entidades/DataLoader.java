@@ -37,11 +37,11 @@ public class DataLoader {
     }
 
     public static void carregarClientes(){
-        String input = ControladorDados.ler("cliente");
+        String input = ControladorDados.ler("./baseDados/cliente.txt");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
-        
+
         for (List<Integer> idxs : contarRepetido("end", valores)){
             Date cadastro = null;
             String nome = valores.get(idxs.get(1));
@@ -63,23 +63,23 @@ public class DataLoader {
                 String cnpj = valores.get(idxs.get(9));
                 String razaoSocial = valores.get(idxs.get(10));
                 int prazoMaximo =  Integer.parseInt(valores.get(idxs.get(11)));
-                PessoaJuridica pessoaJuridica = new PessoaJuridica(nome, endereco, cadastro, cnpj, razaoSocial, prazoMaximo);
+                new PessoaJuridica(nome, endereco, cadastro, cnpj, razaoSocial, prazoMaximo);
             }else{
                 String cpf = valores.get(idxs.get(9));
                 int qntMaxParcelas = Integer.parseInt(valores.get(idxs.get(10)));       
-                PessoaFisica pessoaFisica = new PessoaFisica(nome, endereco, cadastro, qntMaxParcelas, cpf);
+                new PessoaFisica(nome, endereco, cadastro, qntMaxParcelas, cpf);
             }
         }
     }
 
     public static void carregarProdutos(){
         produtos.clear(); 
-    
-        String input = ControladorDados.ler("produto");
+
+        String input = ControladorDados.ler("./baseDados/produto.txt");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
-    
+
         for (List<Integer> idxs : contarRepetido("end", valores)){
             String nome = valores.get(idxs.get(1));
             int codigoProduto = Integer.parseInt(valores.get(idxs.get(2)));
@@ -87,13 +87,11 @@ public class DataLoader {
             String descricaoProduto = valores.get(idxs.get(4));
     
             if (valores.get(idxs.get(0)).equals("class entidades.Produto")){
-                Produto produto = new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
-                produtos.add(produto); // Adicione o produto à lista
+                new Produto(valorProduto, nome, codigoProduto, descricaoProduto);
             }else{
                 try {
                     Date dataValidade = sdf.parse(valores.get(idxs.get(5)));
-                    ProdutoPerecivel produtoPerecivel = new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade);
-                    produtos.add(produtoPerecivel); // Adicione o produto perecível à lista
+                    new ProdutoPerecivel(valorProduto, nome, codigoProduto, descricaoProduto, dataValidade); // Adicione o produto perecível à lista
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -101,26 +99,29 @@ public class DataLoader {
         }
     }
 
-        public static void carregarCompras(){
-            compras.clear();
-            String input = ControladorDados.ler("compra");
-            ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-            ArrayList<String> valores = resultado.getValores();
+    public static void carregarCompras(){
+        compras.clear();
+        String input = ControladorDados.ler("./baseDados/compras.txt");
+        ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+        ArrayList<String> valores = resultado.getValores();
 
-            for (List<Integer> idxs : contarRepetido("end", valores)){
-                String nome = valores.get(idxs.get(3));
-                
-            }
+        for (List<Integer> idxs : contarRepetido("end", valores)){
+            String id =  valores.get(idxs.get(0));
+            String pago =  valores.get(idxs.get(1));
+            String data =  valores.get(idxs.get(2));
+            String doc = valores.get(idxs.get(idxs.size()-2));
+            String total = valores.get(idxs.get(idxs.size()-3));
+            System.out.println(id + " " + pago + " " + data + " " + doc + " " + total);
         }
-    
-    
+    }
+
     public static List<Produto> getProdutos(){
         return produtos;
     }
     public static List<Compra> getCompras(){
         return compras;
-        
+
     }
 
 

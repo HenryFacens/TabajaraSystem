@@ -20,6 +20,7 @@ public class Produto {
             Produto.classesInstanciadas.add(this);
         }
     }
+    
     public static List<Object> getClassesInstanciadas() {
         return classesInstanciadas;
     }
@@ -67,6 +68,6 @@ public class Produto {
         return "Tipo:" + this.getClass() + "\nNome:" + nome + "\nCódigo Produto:" + codigoProduto + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto + "\nend:end" + "\n\n";
     }
     public String paraStringCompra(){
-        return "Nome:" + nome + "\nValor do Produto:" +valorProduto  + "\nDescrição:" + descricaoProduto + "end:produto";
+        return "Nome:" + nome + "\nValor do Produto:" + valorProduto  + "\nDescrição:" + descricaoProduto;
     }
 }

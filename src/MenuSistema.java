@@ -24,6 +24,7 @@ public class MenuSistema {
     public static void main(String[] args) {
         DataLoader.carregarClientes();
         DataLoader.carregarProdutos();
+        DataLoader.carregarCompras();
 
         while (true) {
             String input = JOptionPane.showInputDialog(null,
@@ -236,9 +237,7 @@ public class MenuSistema {
                         List<Produto> carrinho = new ArrayList<>();
                         String carrinhoCompras = "";
 
-                        DataLoader.carregarProdutos();
-                        List<Produto> listaProduto = DataLoader.getProdutos();
-
+                        List<Object> listaProduto = Produto.getClassesInstanciadas();
                         boolean continuarComprando = true;
 
                         while (continuarComprando && !listaProduto.isEmpty()) { 

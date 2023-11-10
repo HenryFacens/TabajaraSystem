@@ -16,7 +16,7 @@ public class Compra {
     private Cliente cliente;
     private String produtos;
     private boolean pago;
-    
+
     private final String documento;
 
     public Compra(List<ItensPedidos> lista, Date data, String documento) {
