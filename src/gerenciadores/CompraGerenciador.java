@@ -19,7 +19,6 @@ public class CompraGerenciador {
 
     public void salvarCompra(Compra compra) {
         String dadosCompra = compra.paraString();
-        System.out.println(dadosCompra);
         SalvarDados.salvar(dadosCompra, "compras");
     }
 

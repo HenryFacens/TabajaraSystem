@@ -1,4 +1,5 @@
 import entidades.Cliente;
+import entidades.Compra;
 import entidades.Endereco;
 
 import entidades.PessoaFisica;
@@ -24,7 +25,9 @@ public class MenuSistema {
     public static void main(String[] args) {
         DataLoader.carregarClientes();
         DataLoader.carregarProdutos();
+        System.out.println(Compra.getClassesInstanciadas().size());
         DataLoader.carregarCompras();
+        System.out.println(Compra.getClassesInstanciadas().size());
 
         while (true) {
             String input = JOptionPane.showInputDialog(null,
@@ -250,7 +253,6 @@ public class MenuSistema {
                         double total = 0;
                         while (continuarComprando && !listaProduto.isEmpty()) { 
                             String[] produtosArray = new String[listaProduto.size()];
-                            System.out.println(listaProduto.size() + " " + i);
                             for (Object obj: listaProduto){
                                 if (obj instanceof ProdutoPerecivel){
                                     ProdutoPerecivel objProd  = (ProdutoPerecivel) obj; 
@@ -302,7 +304,6 @@ public class MenuSistema {
                                 }
                                 resumoCompra.append("Quantidade: ").append(quantidadePedida).append("\n");
                             }
-                            
                             SalvarDados.reescreverLista(listaProduto, "produto");
                             
                             int continuar = JOptionPane.showConfirmDialog(null, "Deseja adicionar mais produtos ao carrinho?",
@@ -312,15 +313,15 @@ public class MenuSistema {
                         }
 
                         resumoCompra.append("Total a pagar: ").append(total);
-
-                        JOptionPane.showMessageDialog(null, resumoCompra.toString(), "Finalizar Compra", JOptionPane.INFORMATION_MESSAGE);
-
-                        carrinhoCompras = resumoCompra.toString();
                         
+                        JOptionPane.showMessageDialog(null, resumoCompra.toString(), "Finalizar Compra", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        carrinhoCompras = resumoCompra.toString();
+                        System.out.println(carrinhoCompras);
                         CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras);
 
                         SalvarDados.limparArquivo("produto");
-
+                        
                         for (Object produto : listaProduto) {
                             if (produto instanceof ProdutoPerecivel) {
                                 ProdutoPerecivel prodPer = (ProdutoPerecivel) produto;
