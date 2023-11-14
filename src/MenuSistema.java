@@ -336,10 +336,36 @@ public class MenuSistema {
                     Produto.setClassesInstanciadas(listaProduto);
                     break;
                 case 6:
-                    String indentificao = JOptionPane.showInputDialog("Digite o codigo:");
-
-                    // Lógica para atualização da situação de pagamento de uma compra
-                    break;
+                Integer identificacao = Integer.parseInt(JOptionPane.showInputDialog("Digite o codigo:"));
+                List<Object> compras = Compra.getClassesInstanciadas();
+                boolean encontrou = false;
+                
+                for (Object obj : compras) {
+                    if (obj instanceof Compra) {
+                        Compra compra = (Compra) obj;
+                        if (compra.getId().equals(identificacao)) {
+                            compra.setPago(true);
+                            encontrou = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (encontrou) {
+                    JOptionPane.showMessageDialog(null, "Compra com ID " + identificacao + " marcada como paga.");
+                
+                    StringBuilder dadosParaSalvar = new StringBuilder();
+                    for (Object obj : compras) {
+                        if (obj instanceof Compra) {
+                            dadosParaSalvar.append(((Compra) obj).paraString()).append("\n");
+                        }
+                    }
+                    SalvarDados.limparArquivo("compras");
+                    SalvarDados.salvar(dadosParaSalvar.toString(), "compras");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Compra com ID " + identificacao + " não encontrada.");
+                }
+                break;
                 case 7:
                     relatorios();
                     break;

@@ -1,33 +1,16 @@
 package entidades;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import entidades.Endereco;
-import entidades.PessoaFisica;
-import entidades.PessoaJuridica;
 
 public class SalvarDados {
 
-    private static final String DEFAULT_DIRETORIO = "./baseDados/";
+    private static final String DEFAULT_DIRETORIO = "./src/baseDados/";
 
     public static void salvar(String dado, String arquivo) {
         String caminhoCompleto = DEFAULT_DIRETORIO + arquivo + ".txt";

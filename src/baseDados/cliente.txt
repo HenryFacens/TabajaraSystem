@@ -1,28 +1,38 @@
 Tipo:class entidades.PessoaFisica
-Nome:123
-Rua:123
-Numero:123
-CEP:123
-Cidade:123
-Pais:12
-Bairro:123
-Cadastro:Thu Nov 09 09:41:26 BRT 2023
-CPF:123
-Maximas Parcelas:1
+Nome:Henry
+Rua:Maria Terci
+Numero:382
+CEP:18085610
+Cidade:Sorocaba
+Pais:Brasil
+Bairro:Morumbi
+Cadastro:Tue Nov 14 19:56:42 BRT 2023
+CPF:50185221866
+Maximas Parcelas:12
 end:end
 
-
-Tipo:class entidades.PessoaJuridica
-Nome:123
-Rua:123
-Numero:123
-CEP:12312
-Cidade:1231
-Pais:1323
-Bairro:123
-Cadastro:Thu Nov 09 09:41:40 BRT 2023
-CNPJ:123
-Razão Social:123
-Prazo Máximo:123
+Tipo:class entidades.PessoaFisica
+Nome:Eduardo
+Rua:Maria Terci
+Numero:405
+CEP:18085612
+Cidade:Sorocaba
+Pais:Brasil
+Bairro:Morumbi
+Cadastro:Tue Nov 14 19:56:42 BRT 2022
+CPF:16217435780
+Maximas Parcelas:24
 end:end
 
+Tipo:class entidades.PessoaFisica
+Nome:Lucas
+Rua:Maria Terci
+Numero:405
+CEP:18085612
+Cidade:Sorocaba
+Pais:Brasil
+Bairro:Morumbi
+Cadastro:Tue Nov 14 19:56:42 BRT 2022
+CPF:04916743768s
+Maximas Parcelas:24
+end:end

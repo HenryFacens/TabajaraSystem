@@ -1,9 +1,29 @@
+Tipo:class entidades.ProdutoPerecivel
+Nome:Banana
+Código Produto:1
+Valor do Produto:1.5
+Descrição:Banana Prata
+Perecível:Fri Nov 17 00:00:00 BRT 2023
+Quantidade:9
+end:end
+
+
 Tipo:class entidades.Produto
-Nome:123
-Código Produto:123
-Valor do Produto:123.0
-Descrição:123
-Quantidade:1
+Nome:Geladeira
+Código Produto:2
+Valor do Produto:1500.0
+Descrição:Geladeira Brastemp
+Quantidade:18
+end:end
+
+
+Tipo:class entidades.ProdutoPerecivel
+Nome:Iogurte
+Código Produto:3
+Valor do Produto:5.0
+Descrição:Iogurte Natural
+Perecível:Mon Dec 11 00:00:00 BRT 2023
+Quantidade:49
 end:end
 
 
