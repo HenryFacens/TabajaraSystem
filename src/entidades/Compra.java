@@ -6,10 +6,11 @@ import java.util.List;
 
 public class Compra {
 
-    private static int ultimoIdentificador = 0;
+    protected static List<Object> classesInstanciadas = new ArrayList<>();
+    
 
     private List<ItensPedidos> lista = new ArrayList<>();
-    private final String indentificador;
+    private final Integer indentificador;
     private Date data;
     private double valorPago;
     private double valorTotal;
@@ -18,20 +19,25 @@ public class Compra {
     private boolean pago;
 
     private final String documento;
-
-    public Compra(List<ItensPedidos> lista, Date data, String documento) {
+    
+    public Compra(List<ItensPedidos> lista, Date data, String documento, Integer indentificador) {
         this.lista = lista;
-        this.indentificador = String.valueOf(++ultimoIdentificador);
         this.data = data;
         this.valorTotal = calcularValorTotal();
+        this.indentificador = indentificador;
         this.documento = documento;
     }
 
-    public Compra(Cliente cliente, String produtos) {
-        this(new ArrayList<>(), new Date(), cliente.getDocumento());
+    public Compra(Cliente cliente, String produtos, Integer indentificador) {
+        this(new ArrayList<>(), new Date(), cliente.getDocumento(), indentificador);
         this.cliente = cliente;
         this.produtos = produtos;
+        Compra.classesInstanciadas.add(this);
     }
+
+    public static List<Object> getClassesInstanciadas() {
+        return classesInstanciadas;
+    } 
 
     private double calcularValorTotal(){
         double total = 0;
@@ -49,6 +55,10 @@ public class Compra {
         return pago;
     }
 
+    public Integer getId(){
+        return indentificador;
+    }
+
     public String paraString(){
         return  "indentificador:" + indentificador + '\n' +
                 "pago:" + pago + '\n' +
@@ -56,10 +66,5 @@ public class Compra {
                 + produtos + '\n' +
                 "documento:" + documento + '\n'+ "end:end\n\n";
     }
-
-    public void incrCompraID(int quant){
-        ultimoIdentificador += quant;
-    }
-
 
 }

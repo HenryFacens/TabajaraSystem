@@ -11,7 +11,7 @@ import java.util.Locale;
 
 import entidades.ControladorDados;
 import entidades.ResultadoChaveValor;
-
+import gerenciadores.CompraGerenciador;
 import entidades.PessoaFisica;
 import entidades.PessoaJuridica;
 
@@ -108,13 +108,18 @@ public class DataLoader {
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
-
         for (List<Integer> idxs : contarRepetido("end", valores)){
             String id =  valores.get(idxs.get(0));
             String pago =  valores.get(idxs.get(1));
             String data =  valores.get(idxs.get(2));
+            
             String doc = valores.get(idxs.get(idxs.size()-2));
+            
+            Cliente cliente = (Cliente) Cliente.procurarCliente(doc);
+            
             String total = valores.get(idxs.get(idxs.size()-3));
+
+            // new CompraGerenciador(cliente, carrinhoCompras);
             System.out.println(id + " " + pago + " " + data + " " + doc + " " + total);
         }
     }
@@ -126,6 +131,7 @@ public class DataLoader {
     public static List<Compra> getCompras(){
         return compras;
     }
+
 
 
 }

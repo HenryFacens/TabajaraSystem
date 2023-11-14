@@ -243,11 +243,14 @@ public class MenuSistema {
 
                         List<Object> carrinho = new ArrayList<>();
                         String carrinhoCompras = "";
+                        StringBuilder resumoCompra = new StringBuilder();
 
                         boolean continuarComprando = true;
                         int i = 0;
+                        double total = 0;
                         while (continuarComprando && !listaProduto.isEmpty()) { 
                             String[] produtosArray = new String[listaProduto.size()];
+                            System.out.println(listaProduto.size() + " " + i);
                             for (Object obj: listaProduto){
                                 if (obj instanceof ProdutoPerecivel){
                                     ProdutoPerecivel objProd  = (ProdutoPerecivel) obj; 
@@ -287,35 +290,25 @@ public class MenuSistema {
                                     ProdutoPerecivel prod = (ProdutoPerecivel) produtoSelecionado;
                                     prod.setQuantidade(qtd-quantidadePedida);
                                     listaProduto.add(prod);
+                                    resumoCompra.append(prod.paraStringCompra()).append("\n");
+                                    total += prod.getPreco() * quantidadePedida;
+
                                 }else{
                                     Produto prod = (Produto) produtoSelecionado;
                                     prod.setQuantidade(qtd-quantidadePedida);
                                     listaProduto.add(prod);
+                                    resumoCompra.append(prod.paraStringCompra()).append("\n");
+                                    total += prod.getPreco() * quantidadePedida;
                                 }
+                                resumoCompra.append("Quantidade: ").append(quantidadePedida).append("\n");
                             }
-
-                            SalvarDados.reescreverLista(listaProduto, "compras");
-
+                            
+                            SalvarDados.reescreverLista(listaProduto, "produto");
+                            
                             int continuar = JOptionPane.showConfirmDialog(null, "Deseja adicionar mais produtos ao carrinho?",
-                                    "Continuar comprando", JOptionPane.YES_NO_OPTION);
-
+                            "Continuar comprando", JOptionPane.YES_NO_OPTION);
+                            
                             continuarComprando = (continuar == JOptionPane.YES_OPTION);
-                        }
-
-                        StringBuilder resumoCompra = new StringBuilder();
-
-                        double total = 0;
-                        for (Object produto : carrinho) {
-                            if (produto instanceof ProdutoPerecivel) {
-                                ProdutoPerecivel prodPer = (ProdutoPerecivel) produto;
-                                resumoCompra.append(prodPer.paraStringCompra()).append("\n");
-                                total += prodPer.getPreco();
-
-                            } else {
-                                Produto prod = (Produto) produto;
-                                resumoCompra.append(prod.paraStringCompra()).append("\n");
-                                total += prod.getPreco();
-                            }
                         }
 
                         resumoCompra.append("Total a pagar: ").append(total);

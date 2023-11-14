@@ -51,6 +51,26 @@ public abstract class Cliente {
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
-
+    
+    public static Object procurarCliente (String documento){
+        List<Object> objs = Cliente.getClassesInstanciadas();
+        Object cliente = null;
+        for (Object obj : objs){
+            if (obj instanceof PessoaFisica) {
+                PessoaFisica pessoa = (PessoaFisica) obj;
+                    if (pessoa.getCpf().equals(documento)){
+                        cliente = obj;
+                        break;
+                    }
+            } else{
+                PessoaJuridica pessoa = (PessoaJuridica) obj;
+                if (pessoa.getCnpj().equals(documento)){
+                        cliente = obj;
+                        break;
+                }
+            }
+        }
+        return cliente;
+    }
     public abstract String paraString();
 }
