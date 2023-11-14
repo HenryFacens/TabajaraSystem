@@ -25,9 +25,7 @@ public class MenuSistema {
     public static void main(String[] args) {
         DataLoader.carregarClientes();
         DataLoader.carregarProdutos();
-        System.out.println(Compra.getClassesInstanciadas().size());
         DataLoader.carregarCompras();
-        System.out.println(Compra.getClassesInstanciadas().size());
 
         while (true) {
             String input = JOptionPane.showInputDialog(null,
@@ -249,9 +247,9 @@ public class MenuSistema {
                         StringBuilder resumoCompra = new StringBuilder();
 
                         boolean continuarComprando = true;
-                        int i = 0;
                         double total = 0;
                         while (continuarComprando && !listaProduto.isEmpty()) { 
+                            int i = 0;
                             String[] produtosArray = new String[listaProduto.size()];
                             for (Object obj: listaProduto){
                                 if (obj instanceof ProdutoPerecivel){

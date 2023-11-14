@@ -105,24 +105,26 @@ public class DataLoader {
     public static void carregarCompras(){
         compras.clear();
         String input = ControladorDados.ler("./baseDados/compras.txt");
-        // System.out.println(input);
         SalvarDados.limparArquivo("compras");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
         ArrayList<String> chaves = resultado.getChaves();
-        String carrinho = "";
         for (List<Integer> idxs : contarRepetido("end", valores)){
+            String carrinho = "";
             String id =  valores.get(idxs.get(0));
             String pago =  valores.get(idxs.get(1));
             String data =  valores.get(idxs.get(2));
             String doc = valores.get(idxs.get(idxs.size()-2));
             String total = valores.get(idxs.get(idxs.size()-3));
-            for (int i=idxs.get(3); i<idxs.get(idxs.size()-3); i++){
-                carrinho += chaves.get(i)+":"+valores.get(i)+"\n" ;
+            for (int i=0; i<idxs.get(idxs.size()-3)-idxs.get(3); i+=4){
+                carrinho += chaves.get(idxs.get(3 + i))+":"+valores.get(idxs.get(3 + i))+"\n";
+                carrinho += chaves.get(idxs.get(4 + i))+":"+valores.get(idxs.get(4 + i))+"\n";
+                carrinho += chaves.get(idxs.get(5 + i))+":"+valores.get(idxs.get(5 + i))+"\n";
+                carrinho += chaves.get(idxs.get(6 + i))+":"+valores.get(idxs.get(6 + i))+"\n";
             }
+            carrinho += "Total a pagar: " + total;
             Cliente cliente = (Cliente) Cliente.procurarCliente(doc);
-            
             new CompraGerenciador(cliente, carrinho);
         }
     }
