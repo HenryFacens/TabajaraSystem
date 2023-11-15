@@ -37,7 +37,7 @@ public class DataLoader {
     }
 
     public static void carregarClientes(){
-        String input = ControladorDados.ler("./src/baseDados/cliente.txt");
+        String input = ControladorDados.ler("./baseDados/cliente.txt");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
@@ -75,7 +75,7 @@ public class DataLoader {
     public static void carregarProdutos(){
         produtos.clear(); 
 
-        String input = ControladorDados.ler("./src/baseDados/produto.txt");
+        String input = ControladorDados.ler("./baseDados/produto.txt");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
         ArrayList<String> valores = resultado.getValores();
@@ -104,7 +104,7 @@ public class DataLoader {
 
     public static void carregarCompras(){
         compras.clear();
-        String input = ControladorDados.ler("./src/baseDados/compras.txt");
+        String input = ControladorDados.ler("./baseDados/compras.txt");
         SalvarDados.limparArquivo("compras");
         ResultadoChaveValor resultado = ControladorDados.separarChaveValor(input);
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);

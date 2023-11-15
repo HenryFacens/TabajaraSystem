@@ -425,7 +425,17 @@ public class MenuSistema {
                 // Lógica para busca de um produto pelo nome
                 break;
             case "d":
-                // Lógica para relação de produtos perecíveis com data de validade vencida
+                String vencidos = "Produtos vencidos:\n";
+            // Lógica para relação de produtos perecíveis com data de validade vencida
+                for (Object obj : Produto.getClassesInstanciadas()){
+                    if (obj instanceof ProdutoPerecivel){
+                        ProdutoPerecivel prod = (ProdutoPerecivel) obj;
+                        if (prod.estaVencido()){
+                            vencidos+=prod.paraString();
+                        }
+                    }
+                }
+                JOptionPane.showMessageDialog(null, vencidos);
                 break;
             case "e":
                 // Lógica para relação de todas as compras
