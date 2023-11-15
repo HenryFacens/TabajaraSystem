@@ -116,7 +116,7 @@ public class DataLoader {
             String pago =  valores.get(idxs.get(1));
             String data =  valores.get(idxs.get(2));
             String doc = valores.get(idxs.get(idxs.size()-2));
-            String total = valores.get(idxs.get(idxs.size()-3));
+            Double total = Double.parseDouble(valores.get(idxs.get(idxs.size()-3)));
             for (int i=0; i<idxs.get(idxs.size()-3)-idxs.get(3); i+=4){
                 carrinho += chaves.get(idxs.get(3 + i))+":"+valores.get(idxs.get(3 + i))+"\n";
                 carrinho += chaves.get(idxs.get(4 + i))+":"+valores.get(idxs.get(4 + i))+"\n";
@@ -125,7 +125,7 @@ public class DataLoader {
             }
             carrinho += "Total a pagar: " + total;
             Cliente cliente = (Cliente) Cliente.procurarCliente(doc);
-            new CompraGerenciador(cliente, carrinho);
+            new CompraGerenciador(cliente, carrinho, total);
         }
     }
 

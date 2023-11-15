@@ -316,7 +316,7 @@ public class MenuSistema {
                         
                         carrinhoCompras = resumoCompra.toString();
                         System.out.println(carrinhoCompras);
-                        CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras);
+                        CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras, total);
 
                         SalvarDados.limparArquivo("produto");
                         
@@ -473,9 +473,31 @@ public class MenuSistema {
                 break;
             case "i":
                 // Lógica para apresentação da compra mais cara
+                Compra maior = null;
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (maior == null){
+                        maior = compra;
+                    }else if (maior.valorTotal <= compra.valorTotal){
+                        maior = compra;
+                    }
+                    
+                }
+                JOptionPane.showMessageDialog(null, "Compra mais cara encontrada" + maior.paraString());
                 break;
             case "j":
-                // Lógica para apresentação da compra mais barata
+            // Lógica para apresentação da compra mais barata
+                Compra menor = null;
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (menor == null){
+                        menor = compra;
+                    }else if (menor.valorTotal >= compra.valorTotal){
+                        menor = compra;
+                    }
+                    
+                }
+                JOptionPane.showMessageDialog(null, "Compra mais barata encontrada" + menor.paraString());
                 break;
             case "k":
                 // Lógica para relação do valor total de compras feitas nos últimos 12 meses
