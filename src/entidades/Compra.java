@@ -58,6 +58,9 @@ public class Compra {
     public Integer getId(){
         return indentificador;
     }
+    public Date getData(){
+        return data;
+    }
 
     public String paraString(){
         return  "indentificador:" + indentificador + '\n' +
