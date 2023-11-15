@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -320,7 +321,7 @@ public class MenuSistema {
                         
                         carrinhoCompras = resumoCompra.toString();
                         System.out.println(carrinhoCompras);
-                        CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras);
+                        CompraGerenciador compra = new CompraGerenciador(cliente_compra, carrinhoCompras, total);
 
                         SalvarDados.limparArquivo("produto");
                         
@@ -460,21 +461,29 @@ public class MenuSistema {
                 // Lógica para busca de um produto pelo nome
                 break;
             case "d":
-                // Lógica para relação de produtos perecíveis com data de validade vencida
+                String vencidos = "Produtos vencidos:\n";
+            // Lógica para relação de produtos perecíveis com data de validade vencida
+                for (Object obj : Produto.getClassesInstanciadas()){
+                    if (obj instanceof ProdutoPerecivel){
+                        ProdutoPerecivel prod = (ProdutoPerecivel) obj;
+                        if (prod.estaVencido()){
+                            vencidos+=prod.paraString();
+                        }
+                    }
+                }
+                JOptionPane.showMessageDialog(null, vencidos);
                 break;
             case "e":
+                String compras = "Compras Realizadas:\n";
                 // Lógica para relação de todas as compras
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    compras += compra.paraString();
+                }
+                JOptionPane.showMessageDialog(null, compras);
                 break;
             case "f":
-                String compra_identificador = JOptionPane.showInputDialog("Digite o numero da compra a ser buscada:");
-                String leitura6 = ControladorDados.ler("compra");
-                ResultadoChaveValor resultado6 = ControladorDados.separarChaveValor(leitura6);
-                if(resultado6.getValores().contains(compra_identificador)){
-                    JOptionPane.showMessageDialog(null, resultado6.getValores());
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Compra não encontrada");
-                }
+                // Lógica para busca de uma compra pelo número
                 break;
             case "g":
                 List<Object> comprasg = Compra.getClassesInstanciadas();
@@ -496,7 +505,7 @@ public class MenuSistema {
                 }
                 break;
             case "h":
-                List<Compra> compras = Compra.getClassesInstanciadas()
+                List<Compra> comprash = Compra.getClassesInstanciadas()
                                             .stream()
                                             .filter(obj -> obj instanceof Compra)
                                             .map(obj -> (Compra) obj)
@@ -507,7 +516,7 @@ public class MenuSistema {
 
                 StringBuilder ultimasCompras = new StringBuilder("Últimas 10 Compras Pagas:\n");
 
-                for (Compra compra : compras) {
+                for (Compra compra : comprash) {
                     ultimasCompras.append(compra.paraString()).append("\n");
                 }
 
@@ -515,17 +524,57 @@ public class MenuSistema {
                 break;
             case "i":
                 // Lógica para apresentação da compra mais cara
+                Compra maior = null;
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (maior == null){
+                        maior = compra;
+                    }else if (maior.valorTotal <= compra.valorTotal){
+                        maior = compra;
+                    }
+                    
+                }
+                JOptionPane.showMessageDialog(null, "Compra mais cara encontrada" + maior.paraString());
                 break;
             case "j":
-                // Lógica para apresentação da compra mais barata
+            // Lógica para apresentação da compra mais barata
+                Compra menor = null;
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (menor == null){
+                        menor = compra;
+                    }else if (menor.valorTotal >= compra.valorTotal){
+                        menor = compra;
+                    }
+                    
+                }
+                JOptionPane.showMessageDialog(null, "Compra mais barata encontrada" + menor.paraString());
                 break;
             case "k":
                 // Lógica para relação do valor total de compras feitas nos últimos 12 meses
+                Date dateToCheck = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dateToCheck);
+                calendar.add(Calendar.MONTH, -12);
+                Date startDate = calendar.getTime();
+                Date endDate = new Date();
+                String compras12meses = "Valor de compras realizadas em 12 meses:\n";
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (dentroDaData(compra.getData(), startDate, endDate)){
+                        compras12meses += compra.valorTotal + "\n";
+                    }
+                }
+                JOptionPane.showMessageDialog(null, compras12meses);
                 break;
             case "0":
                 return; // Retorna para o menu principal
             default:
                 JOptionPane.showMessageDialog(null, "Opção inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    private static boolean dentroDaData(Date dateToCheck, Date startDate, Date endDate) {
+        return (dateToCheck.equals(startDate) || dateToCheck.after(startDate)) &&
+               (dateToCheck.equals(endDate) || dateToCheck.before(endDate));
     }
 }

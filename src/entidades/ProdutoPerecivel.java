@@ -15,7 +15,6 @@ public class ProdutoPerecivel extends Produto{
 
     public boolean estaVencido(){
         Date dataAtual = new Date();
-
         return this.dataValidade.before(dataAtual);
     }
 

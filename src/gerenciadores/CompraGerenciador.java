@@ -10,9 +10,9 @@ public class CompraGerenciador {
 
     private Compra compra;
     
-    public CompraGerenciador(Cliente cliente, String carrinho) {
+    public CompraGerenciador(Cliente cliente, String carrinho, Double total) {
         Integer indentificador = gerarId();
-        this.compra = new Compra(cliente, carrinho, indentificador);
+        this.compra = new Compra(cliente, carrinho, indentificador, total);
         
         salvarCompra(compra);
     }

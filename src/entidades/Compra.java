@@ -13,23 +13,23 @@ public class Compra {
     private final Integer indentificador;
     private Date data;
     private double valorPago;
-    private double valorTotal;
+    public double valorTotal;
     private Cliente cliente;
     private String produtos;
     private boolean pago;
 
     private final String documento;
     
-    public Compra(List<ItensPedidos> lista, Date data, String documento, Integer indentificador) {
+    public Compra(List<ItensPedidos> lista, Date data, String documento, Integer indentificador, double total) {
         this.lista = lista;
         this.data = data;
-        this.valorTotal = calcularValorTotal();
+        this.valorTotal = total;
         this.indentificador = indentificador;
         this.documento = documento;
     }
 
-    public Compra(Cliente cliente, String produtos, Integer indentificador) {
-        this(new ArrayList<>(), new Date(), cliente.getDocumento(), indentificador);
+    public Compra(Cliente cliente, String produtos, Integer indentificador, double total) {
+        this(new ArrayList<>(), new Date(), cliente.getDocumento(), indentificador, total);
         this.cliente = cliente;
         this.produtos = produtos;
         Compra.classesInstanciadas.add(this);
@@ -46,7 +46,9 @@ public class Compra {
         }
         return total;
     }
-
+    public Date getData(){
+        return data;
+    }
     public void setPago(boolean pago) {
         this.pago = pago;
     }
@@ -57,9 +59,6 @@ public class Compra {
 
     public Integer getId(){
         return indentificador;
-    }
-    public Date getData(){
-        return data;
     }
 
     public String paraString(){
