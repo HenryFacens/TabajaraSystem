@@ -438,7 +438,13 @@ public class MenuSistema {
                 JOptionPane.showMessageDialog(null, vencidos);
                 break;
             case "e":
+                String compras = "Compras Realizadas:\n";
                 // Lógica para relação de todas as compras
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    compras += compra.paraString();
+                }
+                JOptionPane.showMessageDialog(null, compras);
                 break;
             case "f":
                 // Lógica para busca de uma compra pelo número
