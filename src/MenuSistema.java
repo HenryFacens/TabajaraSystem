@@ -1,11 +1,13 @@
 import entidades.Cliente;
 import entidades.Compra;
+import entidades.ControladorDados;
 import entidades.Endereco;
 
 import entidades.PessoaFisica;
 import entidades.PessoaJuridica;
 import entidades.Produto;
 import entidades.ProdutoPerecivel;
+import entidades.ResultadoChaveValor;
 import entidades.SalvarDados;
 import gerenciadores.ClienteGerenciador;
 import gerenciadores.CompraGerenciador;
@@ -17,8 +19,10 @@ import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import entidades.DataLoader;
 public class MenuSistema {
@@ -400,6 +404,7 @@ public class MenuSistema {
             return;
         }
 
+        boolean produtoEncontrado;
         switch (input) {
             case "a":
                 String client_input = JOptionPane.showInputDialog("Digite a inicial do cliente a ser buscado: ");
@@ -418,10 +423,40 @@ public class MenuSistema {
                 }
 
                 break;
-            case "b":
-                // Lógica para relação de todos os produtos
+                case "b":
+                List<Object> produtosb = Produto.getClassesInstanciadas();
+                StringBuilder listaProdutos = new StringBuilder("Lista de Produtos:\n");
+            
+                for (Object obj : produtosb) {
+                    if (obj instanceof Produto) {
+                        Produto produto = (Produto) obj;
+                        listaProdutos.append(produto.paraString()).append("\n");
+                    }
+                }
+            
+                JOptionPane.showMessageDialog(null, listaProdutos.toString());
                 break;
+            
             case "c":
+                    String nomeBuscado = JOptionPane.showInputDialog("Digite o nome do produto:");
+                    List<Object> produtos = Produto.getClassesInstanciadas();
+                    boolean produtoEncontrados = false;
+                    
+                    for (Object obj : produtos) {
+                        if (obj instanceof Produto) {
+                            Produto produto = (Produto) obj;
+                            if (produto.getNome().equalsIgnoreCase(nomeBuscado)) {
+                                JOptionPane.showMessageDialog(null, "Produto encontrado: " + produto.paraString());
+                                produtoEncontrados = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!produtoEncontrados) {
+                        JOptionPane.showMessageDialog(null, "Produto não encontrado.");
+                    }
+
                 // Lógica para busca de um produto pelo nome
                 break;
             case "d":
@@ -431,13 +466,52 @@ public class MenuSistema {
                 // Lógica para relação de todas as compras
                 break;
             case "f":
-                // Lógica para busca de uma compra pelo número
+                String compra_identificador = JOptionPane.showInputDialog("Digite o numero da compra a ser buscada:");
+                String leitura6 = ControladorDados.ler("compra");
+                ResultadoChaveValor resultado6 = ControladorDados.separarChaveValor(leitura6);
+                if(resultado6.getValores().contains(compra_identificador)){
+                    JOptionPane.showMessageDialog(null, resultado6.getValores());
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Compra não encontrada");
+                }
                 break;
             case "g":
-                // Lógica para relação de todas as compras não pagas
+                List<Object> comprasg = Compra.getClassesInstanciadas();
+                StringBuilder comprasNaoPagas = new StringBuilder("Compras Não Pagas:\n");
+
+                for (Object obj : comprasg) {
+                    if (obj instanceof Compra) {
+                        Compra compra = (Compra) obj;
+                        if (!compra.getPago()) {
+                            comprasNaoPagas.append(compra.paraString()).append("\n");
+                        }
+                    }
+                }
+
+                if (comprasNaoPagas.length() > "Compras Não Pagas:\n".length()) {
+                    JOptionPane.showMessageDialog(null, comprasNaoPagas.toString());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Todas as compras estão pagas.");
+                }
                 break;
             case "h":
-                // Lógica para relação das 10 últimas compras pagas
+                List<Compra> compras = Compra.getClassesInstanciadas()
+                                            .stream()
+                                            .filter(obj -> obj instanceof Compra)
+                                            .map(obj -> (Compra) obj)
+                                            .filter(Compra::getPago)
+                                            .sorted(Comparator.comparing(Compra::getData).reversed())
+                                            .limit(10) 
+                                            .collect(Collectors.toList());
+
+                StringBuilder ultimasCompras = new StringBuilder("Últimas 10 Compras Pagas:\n");
+
+                for (Compra compra : compras) {
+                    ultimasCompras.append(compra.paraString()).append("\n");
+                }
+
+                JOptionPane.showMessageDialog(null, ultimasCompras.toString());
                 break;
             case "i":
                 // Lógica para apresentação da compra mais cara

@@ -7,7 +7,7 @@ Cidade:Sorocaba
 Pais:Brasil
 Bairro:Morumbi
 Cadastro:Tue Nov 14 19:56:42 BRT 2023
-CPF:50185221866
+CPF:50185221863
 Maximas Parcelas:12
 end:end
 
@@ -36,3 +36,18 @@ Cadastro:Tue Nov 14 19:56:42 BRT 2022
 CPF:04916743768s
 Maximas Parcelas:24
 end:end
+
+Tipo:class entidades.PessoaFisica
+Nome:Jose Barriga de Bosta
+Rua:Itu123
+Numero:123
+CEP:18120123
+Cidade:Sorocaba
+Pais:Brasil
+Bairro:Nova Sorocaba
+Cadastro:Tue Nov 14 21:33:12 BRT 2023
+CPF:50185221866
+Maximas Parcelas:12
+end:end
+
+
