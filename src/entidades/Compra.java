@@ -46,7 +46,9 @@ public class Compra {
         }
         return total;
     }
-
+    public Date getData(){
+        return data;
+    }
     public void setPago(boolean pago) {
         this.pago = pago;
     }

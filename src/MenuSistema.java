@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -501,11 +502,29 @@ public class MenuSistema {
                 break;
             case "k":
                 // Lógica para relação do valor total de compras feitas nos últimos 12 meses
+                Date dateToCheck = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dateToCheck);
+                calendar.add(Calendar.MONTH, -12);
+                Date startDate = calendar.getTime();
+                Date endDate = new Date();
+                String compras12meses = "Valor de compras realizadas em 12 meses:\n";
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (dentroDaData(compra.getData(), startDate, endDate)){
+                        compras12meses += compra.valorTotal + "\n";
+                    }
+                }
+                JOptionPane.showMessageDialog(null, compras12meses);
                 break;
             case "0":
                 return; // Retorna para o menu principal
             default:
                 JOptionPane.showMessageDialog(null, "Opção inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    private static boolean dentroDaData(Date dateToCheck, Date startDate, Date endDate) {
+        return (dateToCheck.equals(startDate) || dateToCheck.after(startDate)) &&
+               (dateToCheck.equals(endDate) || dateToCheck.before(endDate));
     }
 }
