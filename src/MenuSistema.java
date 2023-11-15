@@ -402,7 +402,21 @@ public class MenuSistema {
 
         switch (input) {
             case "a":
-                // Lógica para relação de todos os clientes com nome iniciado por uma determinada sequência de caracteres
+                String client_input = JOptionPane.showInputDialog("Digite a inicial do cliente a ser buscado: ");
+                List<Object> clieteObjs = Cliente.getClassesInstanciadas();
+                for(Object obj: clieteObjs){
+                    if(obj instanceof PessoaFisica){
+                        PessoaFisica cliete = (PessoaFisica) obj;
+                        if(cliete.getNome().contains(client_input)){
+                            JOptionPane.showMessageDialog(null, cliete.getEndereco().paraString());
+                            break;
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado!");
+                            break;
+                        }
+                    }
+                }
+
                 break;
             case "b":
                 // Lógica para relação de todos os produtos
