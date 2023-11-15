@@ -448,6 +448,22 @@ public class MenuSistema {
                 break;
             case "f":
                 // Lógica para busca de uma compra pelo número
+                String inputStr = JOptionPane.showInputDialog("Digite o id da compra:");
+                int idCompra = Integer.parseInt(inputStr);
+                boolean achou = false;
+                String compraStr = "Compra id " + idCompra + ":\n";
+                for (Object obj : Compra.getClassesInstanciadas()){
+                    Compra compra = (Compra) obj;
+                    if (compra.getId() == idCompra){
+                        JOptionPane.showMessageDialog(null, compraStr+compra.paraString());
+                        achou = true;
+                        break;
+                    }
+                }
+                if (!achou){
+                    JOptionPane.showMessageDialog(null, "Nenhuma compra encontrada!");
+                }
+
                 break;
             case "g":
                 // Lógica para relação de todas as compras não pagas
